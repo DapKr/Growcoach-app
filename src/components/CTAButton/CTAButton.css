@@ -1,0 +1,28 @@
+@import '../../styles/tokens.css';
+
+.cta-button {
+  background-color: var(--color-primary);
+  color: var(--color-inverse-maintext);
+  padding: 4px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button:hover {
+  background-color: var(--color-primarymuted3);
+}
+
+.cta-button-text {
+  font: var(--text-style-title-bold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 

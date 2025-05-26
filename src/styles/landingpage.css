@@ -1,0 +1,189 @@
+@import './tokens.css';
+
+/* בסיס כללי */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik', sans-serif;
+    direction: rtl;
+    background-color: var(--color-mainbackground);
+    color: var(--color-maintext);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/* עימוד כללי לעמודים */
+.landing-container {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+
+
+/* תמונה */
+.hero-image {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* רשימות עם כוכבים */
+
+.landing-list-section {
+    display: flex;
+    padding: 0px 48px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+/* כותרות */
+.hero-title {
+    font: var(--text-style-h1-bold);
+    margin: 0;
+    color: var(--color-maintext);
+}
+
+.hero-subtitle {
+    font: var(--text-style-h3-light);
+    margin: 0;
+    color: var(--color-maintext);
+}
+
+.hero-description {
+    font: var(--text-style-h5);
+    margin: 0;
+    color: var(--color-maintext);
+}
+
+.hero-description strong {
+    font: var(--text-style-h5-bold);
+    margin: 0;
+    color: var(--color-maintext);
+}
+
+.hero-description-alt-font {
+    font: var(--text-style-h5-english);
+    margin: 0;
+    color: var(--color-maintext);
+}
+
+.hero-description-alt-font-color {
+    color: var(--color-primary);
+}
+
+/*Hero with background*/
+.hero-with-background {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.88));
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 2rem;
+}
+
+.hero-overlay {
+    display: flex;
+    height: 700px;
+    padding: 40px 48px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+/*existinig user caption*/
+.cta-caption {
+    margin-top: 0.5rem;
+    font: var(--text-style-body);
+    color: var(--color-mutedtext);
+    background-color: rgba(255, 255, 255, 0.70);
+}
+
+.cta-caption a {
+    color: var(--color-primary);
+    text-decoration: none;
+
+}
+
+
+/* רספונסיביות */
+.cta-desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4rem 0 1rem;
+}
+
+.cta-desktop .fab-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+.cta-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .cta-desktop {
+        display: none;
+    }
+
+    .cta-mobile {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 1rem;
+        background-color: white;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-container {
+        padding: 0;
+    }
+
+    .landing-list-section {
+        padding: 0px 20px 100px 20px;
+    }
+ .hero-overlay {
+        height: 620px;
+        padding: 20px 20px;
+    }
+
+    /* כותרות */
+    .hero-title {
+        font: var(--text-style-h3-bold);
+    }
+
+    .hero-subtitle {
+        font: var(--text-style-title-light);
+    }
+
+    .hero-description {
+        font: var(--text-style-subtitle);
+    }
+
+    .hero-description strong {
+        font: var(--text-style-subtitle-bold);
+    }
+
+    .hero-description-alt-font {
+        font: var(--text-style-subtitle-english);
+    }
+
+}

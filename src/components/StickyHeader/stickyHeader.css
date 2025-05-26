@@ -1,0 +1,56 @@
+@import '../../styles/tokens.css';
+
+/* === Sticky Header Styles === */
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-mainbackground);
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.sticky-header .logo-container {
+  display: block;
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.nav-links a {
+  color: var(--color-maintext);
+  text-decoration: none;
+  font: var(--text-style-subtitle);
+}
+
+.nav-links a.hover {
+  font: var(--text-style-subtitle-bold);
+  color: var(--color-maintext);
+}
+
+.nav-links a.focused {
+  font: var(--text-style-subtitle-bold);
+  color: var(--color-primary);
+}
+
+/* === Responsive Header Adjustments === */
+@media (max-width: 768px) {
+  .sticky-header {
+    padding: 20px 20px;
+  }
+
+  .sticky-header .logo-container {
+    height: 32px;
+  }
+
+  .nav-links {
+  gap: 12px;
+}
+
+}

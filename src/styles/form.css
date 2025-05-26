@@ -1,0 +1,114 @@
+@import './tokens.css';
+
+/* === Profile Form Layout === */
+.profile-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  direction: rtl;
+  font-family: var(--font-family-hebrew);
+}
+
+.profile-form-title {
+  font: var(--text-style-h5-bold);
+  color: var(--color-maintext);
+  text-align: right;
+}
+
+.form-sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.profile-form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.draft-button {
+  background-color: #ffffff;
+  color: var(--color-maintext);
+  font: var(--text-style-button);
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.draft-button:hover {
+  background-color: #f7f7f7;
+}
+
+/* === Form Section Box === */
+.section-box {
+  background-color: var(--color-mainbackground);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--color-subtlegray1);
+}
+
+.form-section-title {
+  font: var(--text-style-subtitle-bold);
+  color: var(--color-maintext);
+}
+
+.form-field-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* === Grid Layout for Contact Section === */
+.contact-details-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+  direction: rtl;
+}
+
+/* === Grid Layout for Experience Section === */
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+  direction: rtl;
+}
+
+/* === Supporting Files Section === */
+.supporting-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-form-container {
+    padding: 20px;
+  }
+
+  .contact-details-grid,
+  .experience-grid,
+  .supporting-inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-image-column {
+    order: -1;
+    margin-bottom: 24px;
+  }
+
+  .profile-form-actions {
+    flex-direction: column;
+  }
+}
