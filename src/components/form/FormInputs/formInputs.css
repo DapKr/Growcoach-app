@@ -106,3 +106,464 @@ input[type='checkbox'] {
     gap: 5px;
   }
 }
+
+/* === MultiFileUpload Styles === */
+.file-upload-button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-button);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-start;
+}
+
+.file-upload-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.file-upload-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.file-name {
+  font: var(--text-style-body);
+  color: var(--color-maintext);
+  flex: 1;
+  min-width: 120px;
+  word-break: break-all;
+}
+
+.file-remove-button {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.file-description-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.file-description-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+/* === LinkListInput Styles === */
+.link-input-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.add-link-button {
+  background-color: var(--color-primary);
+  color: var(--color-inverse-maintext);
+  font: var(--text-style-button);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.add-link-button:hover {
+  background-color: var(--color-primarymuted3);
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0 0;
+}
+
+.link-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.link-desc {
+  font-size: 14px;
+  color: var(--color-maintext);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-url {
+  font-size: 14px;
+  color: var(--color-primary);
+  text-decoration: underline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.remove-link-button {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* make sure errors look right */
+.form-input.error {
+  border-color: var(--color-error);
+  background-color: var(--color-errorbackground);
+}
+
+/* 1. עטיפת השדה + כפתור הוספה */
+.link-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* כפתור הוספה inline */
+.link-add-button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-body);
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* 2. הסגנון של כל פריט ברשימה */
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* הקישור עצמו */
+.link-item a {
+  flex: 1;
+  word-break: break-all;
+  font: var(--text-style-body);
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* כפתור הסרה קטן */
+.link-remove-button {
+  background: none;
+  border: none;
+  color: #d00;
+  font: var(--text-style-body);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* שדה התיאור שמופיע אחרי ההוספה */
+.link-desc-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  box-sizing: border-box;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--color-maintext);
+}
+
+.link-desc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+
+.link-input-wrapper input[type="url"] {
+  /* מוסיף ריווח ימני כדי שהכפתור לא יכסה את הטקסט */
+  flex: 1;
+  width: 100%;
+  direction: rtl;
+  text-align: right;
+  padding-left: 80px; /* מרחב לכפתור */
+  box-sizing: border-box;
+}
+
+/* הכפתור עצמו בתוך השדה */
+.link-add-button {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-body);
+  cursor: pointer;
+  padding: 4px 8px;
+  text-decoration: underline;
+  z-index: 2;
+}
+
+/* הסגנון לפריט ברשימת הקישורים */
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* הקישור מוצג בשורה אחת בלבד, עם Ellipsis בסוף */
+.link-item a {
+  flex: 1;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-primary);
+  text-decoration: none;
+  font: var(--text-style-body);
+}
+
+/* כפתור הסרה ליד כל קישור */
+.link-remove-button {
+  background: none;
+  border: none;
+  color: #d00;
+  font: var(--text-style-body);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* שדה התיאור שמופיע אחרי שהקישור נוסף */
+.link-desc-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  box-sizing: border-box;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--color-maintext);
+}
+
+.link-desc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+/* === LinkListInput – עדכונים === */
+
+/* העטיפה של השדה */
+.link-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* שורה של קלט + כפתור – הקלט מקבל פדינג משמאל בשביל הכפתור */
+.link-input-wrapper input[type="text"] {
+  padding-left: 80px;   /* מספיק מקום לכפתור */
+}
+
+/* כפתור ההוספה בתוך השדה – מיושר שמאל */
+.link-add-button {
+  position: absolute;
+  top: 50%;
+  left: 8px;            /* שמאל */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-body);
+  cursor: pointer;
+  padding: 4px 8px;
+  text-decoration: underline;
+}
+
+/* פריט ברשימה – התאמה של רוחב הקישור */
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* הקישור עצמו תופס כ-33% בלבד, שורה אחת עם … בסוף */
+.link-item a {
+  flex: 0 0 33%;            /* כשליש מהרוחב */
+  max-width: 33%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-primary);
+  text-decoration: none;
+  font: var(--text-style-body);
+}
+
+/* כפתור הסרה ליד כל קישור */
+.link-remove-button {
+  background: none;
+  border: none;
+  color: #d00;
+  font: var(--text-style-body);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* שדה התיאור שמופיע אחרי הוספה */
+.link-desc-input {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--color-maintext);
+}
+
+.link-desc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+.link-input-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  flex: 1;
+  /*padding-left: 72px; /* space for button */
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.link-add-btn {
+   position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+[dir="rtl"] .link-add-btn {
+  left: 8px;
+  right: unset;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link-list-item {
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 6px 10px;
+  max-width: 100%;
+  min-height: 38px;
+  margin-bottom: 2px;
+}
+
+.link-url {
+  display: inline-block;
+  direction: ltr;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+  font-size: 15px;
+  color: var(--color-maintext);
+}
+
+.link-url a {
+  color: var(--color-maintext);
+  text-decoration: underline;
+}
+
+.link-remove-btn {
+  background: none;
+  color: var(--color-error);
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  align-self: flex-end;
+  margin-right: 4px;
+  margin-top: -22px;
+  margin-bottom: 4px;
+}
+
+.link-desc-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+  margin-top: 6px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 700px) {
+  .link-list-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    min-height: 38px;
+  }
+  .link-url {
+    max-width: 170px;
+    flex-shrink: 1;
+  }
+  .link-desc-input {
+    max-width: 220px;
+    margin-top: 0;
+    margin-right: 8px;
+  }
+  .link-remove-btn {
+    align-self: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

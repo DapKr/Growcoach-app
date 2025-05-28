@@ -1,13 +1,13 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+//import { useFormContext } from 'react-hook-form';
 import TextField from '../../../components/form/FormInputs/TextField';
 import CheckboxWithLabel from '../../../components/form/FormInputs/CheckboxWithLabel';
 import MultiSelectDropdown from '../../../components/form/FormInputs/MultiSelectDropdown';
 import ProfileImageUpload from '../../../components/form/ProfileImageUpload/ProfileImageUpload';
 
 export default function ContactDetailsSection() {
-  const { watch } = useFormContext();
-  const emailValue = watch('email');
+  //const { watch } = useFormContext();
+  //const emailValue = watch('email');
 
   return (
     <section className="section-box">
@@ -24,11 +24,7 @@ export default function ContactDetailsSection() {
         </div>
 
         <div className="form-field-column">
-          <TextField
-            name="fullName"
-            label="שם מלא"
-            required
-          />
+          <TextField name="fullName" label="שם מלא" required />
 
           <TextField
             name="phone"

@@ -23,7 +23,9 @@ export default function StickyHeader() {
         <img className="logo" src={logoSrc} alt="GrowCoach logo" />
       </div>
       <nav className="nav-links">
-        <a href="/coach" className="focused">מדריכים</a>
+        <a href="/coach" className="focused">
+          מדריכים
+        </a>
         <a href="/contact">צור קשר</a>
       </nav>
     </header>

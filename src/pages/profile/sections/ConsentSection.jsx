@@ -1,3 +1,4 @@
+import React from 'react';
 export default function ConsentSection() {
   return <div>סקשן ניסיון מקצועי</div>;
 }

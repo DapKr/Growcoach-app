@@ -11,7 +11,7 @@ export default function TextField({
 }) {
   const {
     register,
-    formState: { errors }
+    formState: { errors },
   } = useFormContext();
 
   const error = errors[name]?.message;
@@ -42,15 +42,15 @@ export default function TextField({
           ...(type === 'email' && {
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'כתובת מייל לא תקינה'
-            }
+              message: 'כתובת מייל לא תקינה',
+            },
           }),
           ...(type === 'tel' && {
             pattern: {
               value: /^[0-9+\-\s()]{6,20}$/,
-              message: 'מספר טלפון לא תקין'
-            }
-          })
+              message: 'מספר טלפון לא תקין',
+            },
+          }),
         })}
       />
 

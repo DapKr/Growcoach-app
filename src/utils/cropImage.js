@@ -27,4 +27,3 @@ export default async function getCroppedImg(imageSrc, croppedAreaPixels) {
     }, 'image/jpeg');
   });
 }
-

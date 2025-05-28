@@ -11,10 +11,12 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.10.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
-  },
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "lint": "eslint src --ext .js,.jsx",
+  "format": "prettier --write \"src/**/*.{js,jsx}\""
+},
   "browserslist": {
     "production": [
       ">0.2%",
@@ -26,5 +28,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "prettier": "^3.5.3"
   }
 }

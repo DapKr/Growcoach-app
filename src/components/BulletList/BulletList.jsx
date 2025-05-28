@@ -8,7 +8,11 @@ export const BulletList = ({ title, items, className = '' }) => {
       <ul className="bullet-list">
         {items.map((item, i) => (
           <li key={i}>
-            <img src="/assets/list-bullet.svg" alt="list bullet" className="bullet-icon" />
+            <img
+              src="/assets/list-bullet.svg"
+              alt="list bullet"
+              className="bullet-icon"
+            />
             <span>{item}</span>
           </li>
         ))}

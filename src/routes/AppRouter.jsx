@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CoachLanding from '../pages/CoachLanding';
@@ -23,7 +22,7 @@ export default function AppRouter() {
         <Route path="/contact" element={<ContactForm />} />
         <Route path="/parent-form" element={<ParentForm />} />
         <Route path="/message" element={<Message48Hours />} />
-         <Route path="/profile-form" element={<ProfileForm />} />
+        <Route path="/profile-form" element={<ProfileForm />} />
       </Routes>
     </Router>
   );

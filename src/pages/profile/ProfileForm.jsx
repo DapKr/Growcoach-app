@@ -28,11 +28,11 @@ export default function ProfileForm() {
       additionalLinks: [''],
       reviews: [''],
       consentProfile: false,
-      consentContact: false
-    }
+      consentContact: false,
+    },
   });
 
-  const { handleSubmit, reset, watch } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = (data) => {
     console.log('✔️ Data submitted:', data);
@@ -51,18 +51,24 @@ export default function ProfileForm() {
       <div className="profile-form-container" dir="rtl">
         <h1 className="profile-form-title">יצירת פרופיל מדריך</h1>
 
-        <form className= "form-sections-container" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form
+          className="form-sections-container"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
           <ContactDetailsSection />
           <ProfessionalExperienceSection />
           <ConsentSection />
 
           <div className="profile-form-actions">
-            <button type="button" className="draft-button" onClick={handleSaveDraft}>
+            <button
+              type="button"
+              className="draft-button"
+              onClick={handleSaveDraft}
+            >
               שמירה כטיוטה
             </button>
-            <CTAButton type="submit">
-              הקמת פרופיל
-            </CTAButton>
+            <CTAButton type="submit">הקמת פרופיל</CTAButton>
           </div>
         </form>
       </div>

@@ -5,8 +5,16 @@ import { useFormContext } from 'react-hook-form';
 import getCroppedImg from '../../../utils/cropImage';
 import './././ProfileImageUpload.css';
 
-export default function ProfileImageUploadModal({ name, fileTypes, maxSizeKB }) {
-  const { setValue, formState: { errors }, watch } = useFormContext();
+export default function ProfileImageUploadModal({
+  name,
+  fileTypes,
+  maxSizeKB,
+}) {
+  const {
+    setValue,
+    formState: { errors },
+    //watch,
+  } = useFormContext();
   const [imageSrc, setImageSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -67,9 +75,13 @@ export default function ProfileImageUploadModal({ name, fileTypes, maxSizeKB }) 
       </div>
 
       <div className="profile-image-actions">
-        <label htmlFor="imageUpload">{previewUrl ? 'החלפת תמונה' : 'הוספת תמונה'}</label>
+        <label htmlFor="imageUpload">
+          {previewUrl ? 'החלפת תמונה' : 'הוספת תמונה'}
+        </label>
         {previewUrl && (
-          <button type="button" onClick={handleRemoveImage}>הסרת תמונה</button>
+          <button type="button" onClick={handleRemoveImage}>
+            הסרת תמונה
+          </button>
         )}
         <input
           id="imageUpload"
@@ -99,8 +111,20 @@ export default function ProfileImageUploadModal({ name, fileTypes, maxSizeKB }) 
               />
             </div>
             <div className="crop-actions">
-              <button type="button" className="crop-cancel" onClick={() => setShowModal(false)}>ביטול</button>
-              <button type="button" className="crop-save" onClick={handleCropSave}>שמור</button>
+              <button
+                type="button"
+                className="crop-cancel"
+                onClick={() => setShowModal(false)}
+              >
+                ביטול
+              </button>
+              <button
+                type="button"
+                className="crop-save"
+                onClick={handleCropSave}
+              >
+                שמור
+              </button>
             </div>
           </div>
         </div>

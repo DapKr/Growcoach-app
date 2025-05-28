@@ -1,71 +1,102 @@
+// src/pages/profile/sections/ProfessionalExperienceSection.jsx
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import TextField from '../../../components/form/FormInputs/TextField';
 import MultiSelectDropdown from '../../../components/form/FormInputs/MultiSelectDropdown';
-import TextAreaField from '../../../components/form/FormInputs/TextAreaField';
 import NumberField from '../../../components/form/FormInputs/NumberField';
+import TextField from '../../../components/form/FormInputs/TextField';
+import MultiFileUpload from '../../../components/form/FormInputs/MultiFileUpload';
+import LinkListInput from '../../../components/form/FormInputs/LinkListInput';
 
 export default function ProfessionalExperienceSection() {
   const { watch } = useFormContext();
-  const selectedExpertise = watch('expertise');
-  const selectedApproach = watch('approach');
-  const selectedMeetingType = watch('meetingType');
+  const aboutValue = watch('about') || '';
 
   return (
     <section className="section-box">
-      <h2 className="form-section-title">ניסיון מקצועי</h2>
+      <h2 className="form-section-title">נסיון מקצועי</h2>
 
-      <div className="form-field-column">
-        <MultiSelectDropdown
-          name="expertise"
-          label="תחום התמחות"
-          required
-          options={[]} // יש לטעון את הרשימה הרלוונטית
-          allowCustom
-          customFieldName="customExpertise"
-          placeholder="בחר/י תחום או הוסף/י חדש"
-        />
+      {/* ארבעת השדות העליונים */}
+      <div className="experience-grid">
+        <div className="select-wrapper">
+          <MultiSelectDropdown
+            name="expertise"
+            label="תחום התמחות"
+            options={[]} // נטען בעתיד
+            allowCustom={false}
+          />
+        </div>
 
-        <NumberField
-          name="experienceYears"
-          label="שנות ניסיון"
-          type="number"
-          required
-        />
+        <div className="select-wrapper">
+          <NumberField
+            name="experienceYears"
+            label="שנות נסיון"
+            min={0}
+            max={99}
+            required
+          />
+        </div>
 
-        <MultiSelectDropdown
-          name="approach"
-          label="גישת טיפול (אופציונלי)"
-          options={[]} // יש לטעון את הרשימה הרלוונטית
-          allowCustom
-          customFieldName="customApproach"
-          placeholder="בחר/י גישה או הוסף/י חדשה"
-        />
+        <div className="select-wrapper">
+          <MultiSelectDropdown
+            name="approach"
+            label="גישת טיפול (אופציונלי)"
+            options={[]} // נטען בעתיד
+            allowCustom={true}
+          />
+        </div>
 
-        <MultiSelectDropdown
-          name="meetingType"
-          label="צורת המפגש (אופציונלי)"
-          options={[
-            { value: 'פרטני פנים מול פנים', label: 'פרטני פנים מול פנים' },
-            { value: 'פרטני בשיחת וידאו', label: 'פרטני בשיחת וידאו' },
-            { value: 'סדנאות קבוצתיות', label: 'סדנאות קבוצתיות' },
-            { value: 'סדרת מפגשים קבועה מראש', label: 'סדרת מפגשים קבועה מראש' },
-            { value: 'קורסים פנים מול פנים', label: 'קורסים פנים מול פנים' },
-            { value: 'קורסים אונליין', label: 'קורסים אונליין' },
-            { value: 'הרצאות', label: 'הרצאות' }
-          ]}
-          allowCustom
-          customFieldName="customMeetingType"
-          placeholder="בחר/י סוג מפגש או הוסף/י חדש"
-        />
+        <div className="select-wrapper">
+          <MultiSelectDropdown
+            name="meetingType"
+            label="צורת המפגש (אופציונלי)"
+            options={[]} // נטען בעתיד
+            allowCustom={true}
+          />
+        </div>
+      </div>
 
-        <TextAreaField
+      {/* טקסט ארוך עם ספירת תווים */}
+      <div className="about-section">
+        <TextField
           name="about"
           label="קצת על עצמך"
-          hint="זו ההזדמנות שלך להראות להורים מי את. באמת. תני סיפור על הדרך המקצועית, השראה אישית או כל דבר שאפשר להרגיש ממנו חיבור."
+          hint="ספר על הרקע והגישה המקצועית שלך. עד 500 תווים."
+          as="textarea"
           maxLength={500}
         />
+        <div className="word-counter">{aboutValue.length}/500</div>
+      </div>
 
+      {/* שלושת השדות התומכים: תעודות, קישורים לאתרים וקישורים להמלצות */}
+      <div className="supporting-inputs">
+        {/* העלאת תעודות */}
+        <div className="form-input-wrapper">
+          <MultiFileUpload
+            name="certificates"
+            label="תעודות הסמכה"
+            hint="העלות קבצים עד 2MB כל אחד; הקובץ יישמר רק באתר."
+            fileTypes={['application/pdf', 'image/jpeg', 'image/png']}
+            maxSizeKB={2048}
+          />
+        </div>
+
+        {/* קישורים לאתרים */}
+        <LinkListInput
+          name="additionalLinks"
+          label="קישורים לאתרים"
+          hint="כדי להוסיף קישור יש להעתיק את כתובת האתר ישירות ולא להקליד ידנית"
+          placeholderUrl="https://example.com"
+          placeholderDesc="תיאור קצר (אופציונלי)"
+        />
+
+        {/* קישורים להמלצות */}
+        <LinkListInput
+          name="reviews"
+          label="קישורים להמלצות"
+          hint="בשביל לשמור על אמינות, מציגים רק חוות דעת מאתרים רשמיים. שלח.י קישורים – ואחרי אימות, הן יוצגו כטקסט בפרופיל שלך."
+          placeholderUrl="https://example.com"
+          placeholderDesc="תיאור קצר (אופציונלי)"
+        />
       </div>
     </section>
   );

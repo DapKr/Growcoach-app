@@ -13,7 +13,7 @@ export default function NumberField({
 }) {
   const {
     register,
-    formState: { errors }
+    formState: { errors },
   } = useFormContext();
 
   const error = errors[name]?.message;
@@ -38,7 +38,7 @@ export default function NumberField({
         {...register(name, {
           required: required ? 'שדה חובה' : false,
           min: { value: min, message: `המספר צריך להיות לפחות ${min}` },
-          max: { value: max, message: `המספר לא יכול להיות מעל ${max}` }
+          max: { value: max, message: `המספר לא יכול להיות מעל ${max}` },
         })}
       />
 

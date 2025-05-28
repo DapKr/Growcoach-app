@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import './formInputs.css';
 
@@ -7,12 +7,12 @@ export default function TextAreaField({
   label,
   hint = '',
   required = false,
-  maxLength = 500
+  maxLength = 500,
 }) {
   const {
     register,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useFormContext();
 
   const value = watch(name) || '';
@@ -34,11 +34,13 @@ export default function TextAreaField({
         rows={5}
         className={`form-textarea ${error ? 'error' : ''}`}
         {...register(name, {
-          required: required ? 'שדה חובה' : false
+          required: required ? 'שדה חובה' : false,
         })}
       />
 
-      <div className="word-counter">{value.length}/{maxLength}</div>
+      <div className="word-counter">
+        {value.length}/{maxLength}
+      </div>
 
       {error && <div className="form-error-text">{error}</div>}
     </div>
