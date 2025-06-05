@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
+import TextField from './TextField';
+import TextButton from '../../TextButton/TextButton';
 import './formInputs.css';
 
 export default function MultiFileUpload({
@@ -71,9 +73,9 @@ export default function MultiFileUpload({
       {label && <label className="form-field-label">{label}</label>}
       {hint && <div className="form-field-hint">{hint}</div>}
 
-      <button type="button" className="file-upload-button" onClick={onAddClick}>
-        הוספת קובץ
-      </button>
+      <div style={{ textAlign: 'right' }}>
+        <TextButton onClick={onAddClick}>הוספת קובץ</TextButton>
+      </div>
       <input
         ref={inputRef}
         type="file"
@@ -87,20 +89,16 @@ export default function MultiFileUpload({
           <div key={idx} className="link-list-item">
             <div className="link-list-header">
               <span className="link-url">{it.file.name}</span>
-              <button
-                type="button"
-                className="link-remove-btn"
-                onClick={() => onRemove(idx)}
-              >
+              <TextButton color="error" onClick={() => onRemove(idx)}>
                 הסרה
-              </button>
+              </TextButton>
             </div>
-            <input
+            <TextField
+              name={`${name}-desc-${idx}`}
               type="text"
-              className="link-desc-input"
-              placeholder="תיאור קצר לקובץ"
               value={it.description}
               onChange={(e) => onDescChange(idx, e.target.value)}
+              placeholder="תיאור קצר (אופציונלי)"
             />
           </div>
         ))}

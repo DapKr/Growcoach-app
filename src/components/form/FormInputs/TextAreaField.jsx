@@ -8,6 +8,9 @@ export default function TextAreaField({
   hint = '',
   required = false,
   maxLength = 500,
+  value,
+  onChange,
+  ...rest
 }) {
   const {
     register,
@@ -15,8 +18,53 @@ export default function TextAreaField({
     formState: { errors },
   } = useFormContext();
 
-  const value = watch(name) || '';
+  const rhfValue = watch(name) || '';
   const error = errors[name]?.message;
+
+  const textareaProps = {
+    id: name,
+    maxLength,
+    rows: 5,
+    className: `form-textarea ${error ? 'error' : ''}`,
+    onDoubleClick: (e) => {
+      e.preventDefault();
+      if (document.activeElement !== e.target) {
+        e.target.focus();
+      }
+      e.target.select();
+    },
+    onMouseDown: (e) => {
+      if (e.detail === 2) {
+        e.preventDefault();
+        if (document.activeElement !== e.target) {
+          e.target.focus();
+        }
+        e.target.select();
+      }
+    },
+    onPointerDown: (e) => {
+      if (e.detail === 2) {
+        e.preventDefault();
+        if (document.activeElement !== e.target) {
+          e.target.focus();
+        }
+        e.target.select();
+      }
+    },
+    ...rest,
+  };
+
+  if (typeof value !== 'undefined' && typeof onChange === 'function') {
+    textareaProps.value = value;
+    textareaProps.onChange = onChange;
+  } else {
+    Object.assign(
+      textareaProps,
+      register(name, {
+        required: required ? 'שדה חובה' : false,
+      })
+    );
+  }
 
   return (
     <div className={`textarea-wrapper ${error ? 'has-error' : ''}`} dir="rtl">
@@ -28,18 +76,11 @@ export default function TextAreaField({
 
       {hint && <div className="form-field-hint">{hint}</div>}
 
-      <textarea
-        id={name}
-        maxLength={maxLength}
-        rows={5}
-        className={`form-textarea ${error ? 'error' : ''}`}
-        {...register(name, {
-          required: required ? 'שדה חובה' : false,
-        })}
-      />
+      <textarea {...textareaProps} />
 
       <div className="word-counter">
-        {value.length}/{maxLength}
+        {typeof value !== 'undefined' ? value.length : rhfValue.length}/
+        {maxLength}
       </div>
 
       {error && <div className="form-error-text">{error}</div>}

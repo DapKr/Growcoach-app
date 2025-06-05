@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useFormContext, useFieldArray } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+import TextButton from '../../TextButton/TextButton';
 import './formInputs.css';
 
 export default function LinkListInput({
@@ -10,20 +11,18 @@ export default function LinkListInput({
   placeholderDesc = 'תיאור קצר (אופציונלי)',
 }) {
   const {
-    register,
-    control,
+    setValue,
     formState: { errors },
     setError,
     clearErrors,
   } = useFormContext();
 
-  const { fields, append, remove } = useFieldArray({
-    name,
-    control,
-    defaultValue: [],
-  });
-
   const [url, setUrl] = useState('');
+  const [links, setLinks] = useState([]);
+
+  useEffect(() => {
+    setValue(name, links);
+  }, [links, name, setValue]);
 
   const handleAdd = () => {
     if (!url) {
@@ -33,7 +32,7 @@ export default function LinkListInput({
     try {
       new URL(url);
       clearErrors(name);
-      append({ url, desc: '' });
+      setLinks((prev) => [...prev, { url, desc: '' }]);
       setUrl('');
     } catch {
       setError(name, {
@@ -46,6 +45,16 @@ export default function LinkListInput({
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
     if (errors[name]?.message) clearErrors(name);
+  };
+
+  const handleRemove = (index) => {
+    setLinks((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDescChange = (index, value) => {
+    setLinks((prev) =>
+      prev.map((link, i) => (i === index ? { ...link, desc: value } : link))
+    );
   };
 
   return (
@@ -61,9 +70,7 @@ export default function LinkListInput({
           onChange={handleUrlChange}
           placeholder={placeholderUrl}
         />
-        <button type="button" className="link-add-btn" onClick={handleAdd}>
-          הוספה
-        </button>
+        <TextButton onClick={handleAdd}>הוספה</TextButton>
       </div>
 
       {errors[name]?.message && (
@@ -71,8 +78,8 @@ export default function LinkListInput({
       )}
 
       <div className="link-list">
-        {fields.map((item, index) => (
-          <div className="link-list-item" key={item.id}>
+        {links.map((item, index) => (
+          <div className="link-list-item" key={index}>
             <div className="link-list-header">
               <a
                 href={item.url}
@@ -82,20 +89,16 @@ export default function LinkListInput({
               >
                 {item.url}
               </a>
-              <button
-                type="button"
-                className="link-remove-btn"
-                onClick={() => remove(index)}
-              >
+              <TextButton color="error" onClick={() => handleRemove(index)}>
                 הסרה
-              </button>
+              </TextButton>
             </div>
             <input
               type="text"
-              className="link-desc-input"
+              className="form-input"
+              value={item.desc}
+              onChange={(e) => handleDescChange(index, e.target.value)}
               placeholder={placeholderDesc}
-              {...register(`${name}.${index}.desc`)}
-              defaultValue={item.desc}
             />
           </div>
         ))}

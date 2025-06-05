@@ -1,9 +1,12 @@
 // ProfileImageUploadModal.jsx
 import React, { useState, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import Cropper from 'react-easy-crop';
 import { useFormContext } from 'react-hook-form';
 import getCroppedImg from '../../../utils/cropImage';
-import './././ProfileImageUpload.css';
+import TextButton from '../../TextButton/TextButton';
+import CTAButton from '../../CTAButton/CTAButton';
+import './ProfileImageUpload.css';
 
 export default function ProfileImageUploadModal({
   name,
@@ -75,13 +78,16 @@ export default function ProfileImageUploadModal({
       </div>
 
       <div className="profile-image-actions">
-        <label htmlFor="imageUpload">
+        <TextButton
+          color="primary"
+          onClick={() => fileInputRef.current.click()}
+        >
           {previewUrl ? 'החלפת תמונה' : 'הוספת תמונה'}
-        </label>
+        </TextButton>
         {previewUrl && (
-          <button type="button" onClick={handleRemoveImage}>
+          <TextButton color="primary" onClick={handleRemoveImage}>
             הסרת תמונה
-          </button>
+          </TextButton>
         )}
         <input
           id="imageUpload"
@@ -93,42 +99,39 @@ export default function ProfileImageUploadModal({
         />
       </div>
 
-      {showModal && (
-        <div className="modal-backdrop">
-          <div className="modal-content">
-            <h3>בחרי אזור לחיתוך</h3>
-            <div className="cropper-modal-wrapper">
-              <Cropper
-                image={imageSrc}
-                crop={crop}
-                zoom={zoom}
-                aspect={1}
-                cropShape="round"
-                showGrid={false}
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                onCropComplete={handleCropComplete}
-              />
-            </div>
-            <div className="crop-actions">
-              <button
-                type="button"
-                className="crop-cancel"
-                onClick={() => setShowModal(false)}
+      {showModal &&
+        ReactDOM.createPortal(
+          <div className="modal-backdrop">
+            <div className="modal-content">
+              <h3>בחרי אזור לחיתוך</h3>
+              <div className="cropper-modal-wrapper">
+                <Cropper
+                  image={imageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  cropShape="round"
+                  showGrid={false}
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={handleCropComplete}
+                />
+              </div>
+              <div
+                className="crop-actions"
+                style={{ flexDirection: 'column', alignItems: 'center' }}
               >
-                ביטול
-              </button>
-              <button
-                type="button"
-                className="crop-save"
-                onClick={handleCropSave}
-              >
-                שמור
-              </button>
+                <CTAButton size="small" onClick={handleCropSave}>
+                  שמור
+                </CTAButton>
+                <TextButton color="primary" onClick={() => setShowModal(false)}>
+                  ביטול
+                </TextButton>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
 
       {error && <div className="form-error-text">{error}</div>}
     </div>

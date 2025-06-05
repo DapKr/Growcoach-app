@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 import CTAButton from '../../CTAButton/CTAButton';
 import DismissibleChip from '../../Chips/DismissibleChip';
+import TextButton from '../../TextButton/TextButton';
 import './formInputs.css';
 import ReactDOM from 'react-dom';
 
@@ -40,22 +41,8 @@ const CustomDropdownMenu = ({
   searchText,
 }) => {
   const menuRef = useRef(null);
-  const [scrollTop, setScrollTop] = useState(0);
-
-  useEffect(() => {
-    if (menuRef.current) {
-      menuRef.current.scrollTop = scrollTop;
-    }
-  }, [tempSelection]);
-
-  const handleScroll = (e) => {
-    setScrollTop(e.target.scrollTop);
-  };
 
   const handleOptionClick = (value) => {
-    const currentScroll = menuRef.current?.scrollTop || 0;
-    setScrollTop(currentScroll);
-
     if (tempSelection.includes(value)) {
       setTempSelection(tempSelection.filter((v) => v !== value));
     } else {
@@ -74,7 +61,7 @@ const CustomDropdownMenu = ({
 
   return (
     <div className="custom-dropdown-menu">
-      <div className="menu-list" ref={menuRef} onScroll={handleScroll}>
+      <div className="menu-list" ref={menuRef}>
         {filteredOptions.length > 0 ? (
           filteredOptions.map((group) => (
             <div key={group.label} className="option-group">
@@ -92,8 +79,11 @@ const CustomDropdownMenu = ({
             </div>
           ))
         ) : (
-          <div className="no-results">
-            לא נמצאו תוצאות. שווה לבדוק אם יש טעות כתיב או לנסות ניסוח אחר.
+          <div className="no-results-wrapper">
+            <div className="no-results-header">לא נמצאו תוצאות</div>
+            <div className="no-results-message">
+              שווה לבדוק אם יש טעות כתיב או לנסות ניסוח אחר.
+            </div>
           </div>
         )}
       </div>
@@ -101,9 +91,7 @@ const CustomDropdownMenu = ({
         <CTAButton onClick={onClose} size="small">
           הוספה
         </CTAButton>
-        <button type="button" className="menu-text-btn" onClick={onCancel}>
-          ביטול
-        </button>
+        <TextButton onClick={onCancel}>ביטול</TextButton>
       </div>
     </div>
   );
@@ -191,7 +179,7 @@ export default function MultiSelectDropdown({
     if (!menuIsOpen) {
       setTempSelection(value || []);
     }
-  }, [value]);
+  }, [value, menuIsOpen]);
 
   useEffect(() => {
     if (tagsContainerRef.current) {
@@ -320,14 +308,9 @@ export default function MultiSelectDropdown({
         />
         <div className="select-indicators">
           {value?.length > 0 && (
-            <button
-              type="button"
-              className="menu-text-btn"
-              onClick={handleClearAll}
-              tabIndex={-1}
-            >
+            <TextButton onClick={handleClearAll} tabIndex={-1}>
               נקה בחירה
-            </button>
+            </TextButton>
           )}
           <img
             src="/assets/Arrow Down Small.svg"
@@ -354,16 +337,14 @@ export default function MultiSelectDropdown({
             ))}
           </div>
           {showExpandButton && (
-            <button
-              type="button"
-              className="menu-text-btn expand-button"
+            <TextButton
               onClick={(e) => {
                 e.stopPropagation();
                 setIsExpanded(!isExpanded);
               }}
             >
               {isExpanded ? 'פחות' : 'עוד'}
-            </button>
+            </TextButton>
           )}
         </div>
       )}

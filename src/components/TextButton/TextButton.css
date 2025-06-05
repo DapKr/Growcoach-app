@@ -1,0 +1,32 @@
+.text-button {
+  background: none;
+  border: none;
+  font: var(--text-style-body);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.text-button-primary {
+  color: var(--color-primary);
+}
+
+.text-button-primary:hover {
+  color: var(--color-primarymuted3);
+}
+
+.text-button-error {
+  color: var(--color-error);
+}
+
+.text-button-error:hover {
+  color: var(--color-errormuted3);
+}
+
+.text-button-quiet {
+  color: var(--color-maintext);
+}
+
+.text-button-quiet:hover {
+  color: var(--color-mutedtext);
+} 
