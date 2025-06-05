@@ -3,7 +3,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import ContactDetailsSection from './sections/ContactDetailsSection';
 import ProfessionalExperienceSection from './sections/ProfessionalExperienceSection';
 import ConsentSection from './sections/ConsentSection';
-import { CTAButton } from '../../components/CTAButton/CTAButton';
+import CTAButton from '../../components/CTAButton/CTAButton';
 import '../../styles/form.css';
 
 export default function ProfileForm() {

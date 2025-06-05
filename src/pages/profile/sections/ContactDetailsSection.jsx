@@ -1,13 +1,64 @@
-import React from 'react';
-//import { useFormContext } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import TextField from '../../../components/form/FormInputs/TextField';
 import CheckboxWithLabel from '../../../components/form/FormInputs/CheckboxWithLabel';
 import MultiSelectDropdown from '../../../components/form/FormInputs/MultiSelectDropdown';
 import ProfileImageUpload from '../../../components/form/ProfileImageUpload/ProfileImageUpload';
 
 export default function ContactDetailsSection() {
-  //const { watch } = useFormContext();
-  //const emailValue = watch('email');
+  const [serviceAreaOptions, setServiceAreaOptions] = useState([
+    {
+      label: 'שירות כללי',
+      options: [
+        { value: 'online', label: 'אונליין' },
+        { value: 'all-country', label: 'כל הארץ' },
+      ],
+    },
+    {
+      label: 'אזורי הארץ',
+      options: [
+        { value: 'north', label: 'צפון' },
+        { value: 'haifa', label: 'חיפה' },
+        { value: 'center', label: 'מרכז' },
+        { value: 'shfela', label: 'שפלה' },
+        { value: 'jerusalem', label: 'ירושלים' },
+        { value: 'south', label: 'דרום' },
+        { value: 'shomron', label: 'שומרון ובקעה' },
+      ],
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const res = await fetch(
+          'https://data.gov.il/api/3/action/datastore_search?resource_id=b7cf8f14-64a2-4b33-8d4b-edb286fdbd37&limit=5000'
+        );
+        const data = await res.json();
+        const cityOptions = data.result.records.map((city) => ({
+          value: city['שם_ישוב'],
+          label: city['שם_ישוב'],
+        }));
+
+        setServiceAreaOptions((prev) => {
+          const alreadyHasCities = prev.some(
+            (group) => group.label === 'יישובים'
+          );
+          if (alreadyHasCities) return prev;
+
+          return [...prev, { label: 'יישובים', options: cityOptions }];
+        });
+      } catch (err) {
+        console.error('שגיאה בטעינת רשימת היישובים:', err);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  const filterOption = (candidate, input) => {
+    if (!input) return true;
+    return candidate.label.includes(input); // case-sensitive substring match
+  };
 
   return (
     <section className="section-box">
@@ -45,8 +96,9 @@ export default function ContactDetailsSection() {
             name="serviceAreas"
             label="אזור שירות"
             required
-            options={[]} // נטען בעתיד
+            options={serviceAreaOptions}
             allowCustom={false}
+            filterOption={filterOption}
           />
 
           <TextField

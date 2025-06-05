@@ -25,4 +25,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.cta-button.small {
+  padding: 2px 12px;
+  font-size: 13px;
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  border-radius: 6px;
+}
+
+.cta-button.small .cta-button-text {
+  font: var(--text-style-body-bold);
 } 

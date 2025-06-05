@@ -6,8 +6,8 @@ export default function LinkListInput({
   name,
   label,
   hint = '',
-  placeholderUrl = '',
-  placeholderDesc = '',
+  placeholderUrl = 'https://example.com',
+  placeholderDesc = 'תיאור קצר (אופציונלי)',
 }) {
   const {
     register,
@@ -53,14 +53,13 @@ export default function LinkListInput({
       {label && <label className="form-field-label">{label}</label>}
       {hint && <div className="form-field-hint">{hint}</div>}
 
-      <div className="link-input-row">
+      <div className="link-input-wrapper">
         <input
           type="text"
           className={`form-input ${errors[name]?.message ? 'error' : ''}`}
           value={url}
           onChange={handleUrlChange}
           placeholder={placeholderUrl}
-          dir="ltr"
         />
         <button type="button" className="link-add-btn" onClick={handleAdd}>
           הוספה
@@ -74,31 +73,29 @@ export default function LinkListInput({
       <div className="link-list">
         {fields.map((item, index) => (
           <div className="link-list-item" key={item.id}>
-            <span className="link-url" title={item.url}>
+            <div className="link-list-header">
               <a
                 href={item.url}
+                className="link-url"
                 target="_blank"
                 rel="noopener noreferrer"
-                tabIndex={-1}
               >
                 {item.url}
               </a>
-            </span>
-            <button
-              type="button"
-              className="link-remove-btn"
-              onClick={() => remove(index)}
-              tabIndex={-1}
-            >
-              הסר
-            </button>
+              <button
+                type="button"
+                className="link-remove-btn"
+                onClick={() => remove(index)}
+              >
+                הסרה
+              </button>
+            </div>
             <input
               type="text"
               className="link-desc-input"
-              placeholder={placeholderDesc || 'תיאור קצר (אופציונלי)'}
+              placeholder={placeholderDesc}
               {...register(`${name}.${index}.desc`)}
               defaultValue={item.desc}
-              style={{ marginTop: '6px', width: '100%' }}
             />
           </div>
         ))}

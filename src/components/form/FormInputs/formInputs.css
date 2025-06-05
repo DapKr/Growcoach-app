@@ -1,6 +1,6 @@
 @import '../../../styles/tokens.css';
 
-/* === Form Input Shared Styles === */
+/* === Wrappers === */
 .form-input-wrapper,
 .checkbox-wrapper,
 .select-wrapper,
@@ -9,8 +9,11 @@
   flex-direction: column;
   gap: 6px;
   width: 100%;
+  position: relative;
+  z-index: 4;
 }
 
+/* === Label & Hint === */
 .form-field-label {
   font-size: 14px;
   font-weight: 500;
@@ -21,6 +24,7 @@
   font-size: 13px;
   color: #666;
   margin-bottom: 4px;
+  white-space: pre-line;
 }
 
 .form-error-text {
@@ -29,22 +33,28 @@
   margin-top: 4px;
 }
 
-/* === Input Fields === */
+/* === Inputs === */
 .form-input {
   width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
+  height: 44px;
+  padding: 0px 12px;
+  font: var(--text-style-subtitle);
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
   outline: none;
   box-sizing: border-box;
   background-color: white;
   transition: border-color 0.2s, box-shadow 0.2s;
   color: var(--color-maintext);
+  display: flex;
+  align-items: center;
+  cursor: text;
+  position: relative;
+  z-index: 5;
 }
 
 .form-input:focus {
-  border-color: var(--color-primary, #3361f6);
+  border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
 }
 
@@ -53,12 +63,11 @@
   background-color: var(--color-errorbackground);
 }
 
-/* === Remove number input spinners === */
+/* === Number === */
 input[type='number'] {
   appearance: none;
   -moz-appearance: textfield;
 }
-
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   appearance: none;
@@ -66,11 +75,21 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* === Checkbox === */
+.checkbox-line {
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
 input[type='checkbox'] {
   width: 16px;
   height: 16px;
   margin-left: 8px;
   accent-color: var(--color-primary);
+  cursor: pointer;
+  position: relative;
+  z-index: 6;
 }
 
 .checkbox-label {
@@ -78,36 +97,24 @@ input[type='checkbox'] {
   color: var(--color-maintext);
 }
 
-/* === Multiselect/Dropdown (react-select) === */
-.css-13cymwt-control {
-  border-radius: 12px !important;
-  border-color: #ccc !important;
-  min-height: 44px !important;
+/* === Dropdown (react-select) === */
+.form-input__dropdown-indicator {
+  color: var(--color-maintext);
 }
 
-.css-t3ipsp-control:hover,
-.css-t3ipsp-control:focus {
-  border-color: var(--color-primary, #3361f6) !important;
+.form-input__dropdown-indicator svg {
+  fill: var(--color-maintext);
+  color: var(--color-maintext);
 }
 
-/* === Text Area Word Counter === */
+/* === Word Counter === */
 .word-counter {
   font: var(--text-style-body);
   color: var(--color-mutedtext);
   text-align: left;
 }
 
-/* === Responsive === */
-@media (max-width: 768px) {
-  .form-input-wrapper,
-  .checkbox-wrapper,
-  .select-wrapper,
-  .textarea-wrapper {
-    gap: 5px;
-  }
-}
-
-/* === MultiFileUpload Styles === */
+/* === MultiFileUpload === */
 .file-upload-button {
   background: none;
   border: none;
@@ -140,7 +147,7 @@ input[type='checkbox'] {
   color: var(--color-maintext);
   flex: 1;
   min-width: 120px;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .file-remove-button {
@@ -168,402 +175,477 @@ input[type='checkbox'] {
   box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
 }
 
-/* === LinkListInput Styles === */
-.link-input-row {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.add-link-button {
-  background-color: var(--color-primary);
-  color: var(--color-inverse-maintext);
-  font: var(--text-style-button);
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.add-link-button:hover {
-  background-color: var(--color-primarymuted3);
-}
-
-.link-list {
-  list-style: none;
-  padding: 0;
-  margin: 12px 0 0 0;
-}
-
-.link-item {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 4px 0;
-}
-
-.link-desc {
-  font-size: 14px;
-  color: var(--color-maintext);
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.link-url {
-  font-size: 14px;
-  color: var(--color-primary);
-  text-decoration: underline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-}
-
-.remove-link-button {
-  background: none;
-  border: none;
-  color: var(--color-error);
-  cursor: pointer;
-  font-size: 13px;
-  padding: 0;
-  text-decoration: underline;
-}
-
-/* make sure errors look right */
-.form-input.error {
-  border-color: var(--color-error);
-  background-color: var(--color-errorbackground);
-}
-
-/* 1. עטיפת השדה + כפתור הוספה */
+/* === LinkListInput === */
 .link-input-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-}
-
-/* כפתור הוספה inline */
-.link-add-button {
-  background: none;
-  border: none;
-  color: var(--color-primary);
-  font: var(--text-style-body);
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 0;
-}
-
-/* 2. הסגנון של כל פריט ברשימה */
-.link-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-/* הקישור עצמו */
-.link-item a {
-  flex: 1;
-  word-break: break-all;
-  font: var(--text-style-body);
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-/* כפתור הסרה קטן */
-.link-remove-button {
-  background: none;
-  border: none;
-  color: #d00;
-  font: var(--text-style-body);
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-}
-
-/* שדה התיאור שמופיע אחרי ההוספה */
-.link-desc-input {
-  flex: 1;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  outline: none;
-  box-sizing: border-box;
-  background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  color: var(--color-maintext);
-}
-
-.link-desc-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
-}
-
-
-.link-input-wrapper input[type="url"] {
-  /* מוסיף ריווח ימני כדי שהכפתור לא יכסה את הטקסט */
-  flex: 1;
   width: 100%;
+  max-width: 100%;
+}
+
+.link-input-wrapper input[type='text'] {
+  padding-left: 80px;
   direction: rtl;
   text-align: right;
-  padding-left: 80px; /* מרחב לכפתור */
-  box-sizing: border-box;
-}
-
-/* הכפתור עצמו בתוך השדה */
-.link-add-button {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--color-primary);
-  font: var(--text-style-body);
-  cursor: pointer;
-  padding: 4px 8px;
-  text-decoration: underline;
-  z-index: 2;
-}
-
-/* הסגנון לפריט ברשימת הקישורים */
-.link-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-/* הקישור מוצג בשורה אחת בלבד, עם Ellipsis בסוף */
-.link-item a {
-  flex: 1;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--color-primary);
-  text-decoration: none;
-  font: var(--text-style-body);
-}
-
-/* כפתור הסרה ליד כל קישור */
-.link-remove-button {
-  background: none;
-  border: none;
-  color: #d00;
-  font: var(--text-style-body);
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-}
-
-/* שדה התיאור שמופיע אחרי שהקישור נוסף */
-.link-desc-input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  outline: none;
-  box-sizing: border-box;
-  background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  color: var(--color-maintext);
-}
-
-.link-desc-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
-}
-
-/* === LinkListInput – עדכונים === */
-
-/* העטיפה של השדה */
-.link-input-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-/* שורה של קלט + כפתור – הקלט מקבל פדינג משמאל בשביל הכפתור */
-.link-input-wrapper input[type="text"] {
-  padding-left: 80px;   /* מספיק מקום לכפתור */
-}
-
-/* כפתור ההוספה בתוך השדה – מיושר שמאל */
-.link-add-button {
-  position: absolute;
-  top: 50%;
-  left: 8px;            /* שמאל */
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--color-primary);
-  font: var(--text-style-body);
-  cursor: pointer;
-  padding: 4px 8px;
-  text-decoration: underline;
-}
-
-/* פריט ברשימה – התאמה של רוחב הקישור */
-.link-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-/* הקישור עצמו תופס כ-33% בלבד, שורה אחת עם … בסוף */
-.link-item a {
-  flex: 0 0 33%;            /* כשליש מהרוחב */
-  max-width: 33%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--color-primary);
-  text-decoration: none;
-  font: var(--text-style-body);
-}
-
-/* כפתור הסרה ליד כל קישור */
-.link-remove-button {
-  background: none;
-  border: none;
-  color: #d00;
-  font: var(--text-style-body);
-  cursor: pointer;
-  text-decoration: underline;
-  padding: 0;
-}
-
-/* שדה התיאור שמופיע אחרי הוספה */
-.link-desc-input {
-  flex: 1;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  color: var(--color-maintext);
-}
-
-.link-desc-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
-}
-
-.link-input-row {
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin-bottom: 6px;
-}
-
-.form-input {
-  flex: 1;
-  /*padding-left: 72px; /* space for button */
-  min-width: 0;
   box-sizing: border-box;
 }
 
 .link-add-btn {
-   position: absolute;
-  left: 12px;
+  position: absolute;
   top: 50%;
+  left: 8px;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: var(--color-primary);
-  font: inherit;
-  font-weight: 600;
-  font-size: 15px;
+  font: var(--text-style-body);
   cursor: pointer;
   padding: 0 4px;
-}
-
-[dir="rtl"] .link-add-btn {
-  left: 8px;
-  right: unset;
+  text-decoration: underline;
 }
 
 .link-list {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 12px;
+  width: 100%;
 }
 
 .link-list-item {
   display: flex;
-  flex-direction: column;
-  background: #f7f7f7;
-  border-radius: 8px;
-  padding: 6px 10px;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0;
+  width: 100%;
   max-width: 100%;
-  min-height: 38px;
-  margin-bottom: 2px;
+  flex-direction: column;
+}
+
+.link-list-header {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .link-url {
-  display: inline-block;
-  direction: ltr;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 90%;
-  font-size: 15px;
+  overflow-wrap:anywhere;
+  direction: ltr;
+  font: var(--text-style-body);
   color: var(--color-maintext);
-}
-
-.link-url a {
-  color: var(--color-maintext);
-  text-decoration: underline;
 }
 
 .link-remove-btn {
   background: none;
-  color: var(--color-error);
   border: none;
+  color: var(--color-mutedtext);
+  font: var(--text-style-body);
+  text-decoration: underline;
   cursor: pointer;
-  font: inherit;
-  align-self: flex-end;
-  margin-right: 4px;
-  margin-top: -22px;
-  margin-bottom: 4px;
+  display: inline-flex;
+  width: auto;
+  justify-self: end;
 }
 
 .link-desc-input {
-  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 14px;
-  margin-top: 6px;
+  width: 100%;
   box-sizing: border-box;
+  background-color: white;
+  color: var(--color-maintext);
 }
 
-@media (min-width: 700px) {
-  .link-list-item {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 8px 12px;
-    min-height: 38px;
+.link-desc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .form-input-wrapper,
+  .checkbox-wrapper,
+  .select-wrapper,
+  .textarea-wrapper {
+    gap: 5px;
   }
-  .link-url {
-    max-width: 170px;
-    flex-shrink: 1;
-  }
-  .link-desc-input {
-    max-width: 220px;
-    margin-top: 0;
-    margin-right: 8px;
-  }
-  .link-remove-btn {
-    align-self: flex-start;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+}
+
+/* === Multi Select Custom Parts === */
+.custom-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.custom-option:hover {
+  background-color: var(--color-subtlegray1);
+}
+
+.custom-option.focused {
+  background-color: var(--color-subtlegray1);
+}
+
+.custom-option.selected {
+  background-color: var(--color-subtlegray2);
+}
+
+.menu-actions {
+  border-top: 1px solid var(--color-subtlegray1);
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-subtlegray0);
+}
+
+.menu-actions button {
+  padding: 6px 12px;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font: var(--text-style-button);
+  color: var(--color-maintext);
+}
+
+.menu-actions .menu-text-btn {
+  background: none;
+  border: none;
+  color: var(--color-maintext);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 8px;
+  text-decoration: underline;
+  border-radius: 0;
+  font: var(--text-style-button);
+  transition: none;
+}
+.menu-actions .menu-text-btn:hover {
+  color: var(--color-maintext);
+  background: none;
+  text-decoration: underline;
+}
+
+.menu-actions button:hover {
+  background-color: var(--color-subtlegray1);
+  border-color: var(--color-subtlegray2);
+}
+
+/* === Multi Select Value Container === */
+.select-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 28px;
+}
+
+.clear-all-button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-button);
+  padding: 0;
+  cursor: pointer;
+}
+
+.clear-all-button:hover {
+  text-decoration: underline;
+}
+
+.tags-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  max-height: 32px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.tags-container.expanded {
+  max-height: none;
+}
+
+.tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+  min-width: 0; /* Needed for proper flex behavior */
+}
+
+.selected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: var(--color-subtlegray0);
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 16px;
+  font: var(--text-style-body);
+  color: var(--color-maintext);
+  max-width: 200px;
+}
+
+.selected-tag span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-tag-button {
+  background: none;
+  border: none;
+  color: var(--color-mutedtext);
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -4px;
+}
+
+.remove-tag-button:hover {
+  color: var(--color-error);
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font: var(--text-style-button);
+  padding: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-right: auto;
+}
+
+.expand-button:hover {
+  text-decoration: underline;
+}
+
+/* === Multi Select Groups === */
+.custom-group {
+  padding: 0;
+}
+
+.group-header {
+  padding: 8px 12px;
+  background-color: var(--color-subtlegray0);
+  color: var(--color-maintext);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.group-options {
+  padding: 0;
+}
+
+/* === Dropdown Menu === */
+.menu-portal {
+  position: absolute;
+  z-index: 9999;
+  background: white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-dropdown-menu {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+  padding: 0;
+}
+
+.menu-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-text-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary, #3361f6);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 8px;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.menu-text-btn:hover {
+  color: var(--color-primarymuted3, #2546a6);
+}
+
+/* === MultiSelectDropdown === */
+.select-control {
+  min-height: 44px;
+  padding: 0 12px;
+  background-color: white;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.select-control.menu-open {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+.form-input-wrapper.has-error .select-control {
+  border-color: var(--color-error);
+  background-color: var(--color-errorbackground);
+}
+
+.select-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-maintext);
+  font: var(--text-style-subtitle);
+  width: 100%;
+  cursor: inherit;
+}
+
+.select-input::placeholder {
+  color: #666;
+}
+
+.select-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-indicator {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.custom-dropdown-menu {
+  background: white;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+}
+
+.menu-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.option-group {
+  border-bottom: 1px solid var(--color-subtlegray1);
+}
+
+.option-group:last-child {
+  border-bottom: none;
+}
+
+.group-header {
+  padding: 8px 12px;
+  background-color: var(--color-subtlegray0);
+  color: var(--color-maintext);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.menu-option {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.menu-option:hover {
+  background-color: var(--color-subtlegray0);
+}
+
+.menu-option.selected {
+  background-color: rgba(51, 97, 246, 0.1);
+}
+
+.menu-actions {
+  padding: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid var(--color-subtlegray1);
+}
+
+.menu-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  color: white;
+  cursor: pointer;
+}
+
+.menu-actions button:last-child {
+  background-color: var(--color-subtlegray0);
+  color: var(--color-maintext);
+}
+
+.tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-container {
+  padding: 8px;
+  border-bottom: 1px solid var(--color-subtlegray1);
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 4px;
+  font: var(--text-style-subtitle);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.1);
+}
+
+.no-results {
+  padding: 16px;
+  text-align: center;
+  color: var(--color-maintext);
+  font: var(--text-style-subtitle);
 }

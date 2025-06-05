@@ -17,7 +17,7 @@ export default function TextField({
   const error = errors[name]?.message;
 
   return (
-    <div className={`form-field-wrapper ${error ? 'has-error' : ''}`} dir="rtl">
+    <div className={`form-input-wrapper ${error ? 'has-error' : ''}`} dir="rtl">
       {label && (
         <label htmlFor={name} className="form-field-label">
           {label} {required && <span className="required">*</span>}
@@ -25,10 +25,7 @@ export default function TextField({
       )}
 
       {hint && (
-        <div
-          className="form-field-hint"
-          style={{ whiteSpace: 'pre-line' }} // 👈 זה מאפשר שורת טקסט ריקה
-        >
+        <div className="form-field-hint" style={{ whiteSpace: 'pre-line' }}>
           {hint}
         </div>
       )}
@@ -36,7 +33,7 @@ export default function TextField({
       <input
         id={name}
         type={type}
-        className="form-input"
+        className={`form-input ${error ? 'error' : ''}`}
         {...register(name, {
           required: required ? 'שדה חובה' : false,
           ...(type === 'email' && {

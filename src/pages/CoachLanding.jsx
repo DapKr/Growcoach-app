@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import StickyHeader from '../components/StickyHeader/StickyHeader.jsx';
 import { BulletList } from '../components/BulletList/BulletList.jsx';
-import { CTAButton } from '../components/CTAButton/CTAButton.jsx';
+import CTAButton from '../components/CTAButton/CTAButton.jsx';
 import '../styles/landingpage.css';
 
 export default function CoachLanding() {

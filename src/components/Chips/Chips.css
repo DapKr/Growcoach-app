@@ -1,0 +1,39 @@
+.dismissible-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: var(--color-subtlegray0);
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 16px;
+  font: var(--text-style-body);
+  color: var(--color-maintext);
+}
+
+.chip-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-dismiss-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: var(--color-mutedtext);
+  border-radius: 50%;
+}
+
+.chip-dismiss-button:hover {
+  background-color: var(--color-subtlegray1);
+}
+
+.chip-dismiss-icon {
+  width: 12px;
+  height: 12px;
+  display: block;
+} 

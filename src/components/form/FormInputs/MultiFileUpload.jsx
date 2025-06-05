@@ -82,27 +82,29 @@ export default function MultiFileUpload({
         onChange={onFileChange}
       />
 
-      <ul className="file-upload-list">
+      <div className="link-list">
         {items.map((it, idx) => (
-          <li key={idx} className="file-upload-item">
-            <span className="file-name">{it.file.name}</span>
-            <button
-              type="button"
-              className="file-remove-button"
-              onClick={() => onRemove(idx)}
-            >
-              הסרה
-            </button>
+          <div key={idx} className="link-list-item">
+            <div className="link-list-header">
+              <span className="link-url">{it.file.name}</span>
+              <button
+                type="button"
+                className="link-remove-btn"
+                onClick={() => onRemove(idx)}
+              >
+                הסרה
+              </button>
+            </div>
             <input
               type="text"
-              className="file-description-input"
+              className="link-desc-input"
               placeholder="תיאור קצר לקובץ"
               value={it.description}
               onChange={(e) => onDescChange(idx, e.target.value)}
             />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
 
       {errors[name] && (
         <div className="form-error-text">{errors[name].message}</div>
