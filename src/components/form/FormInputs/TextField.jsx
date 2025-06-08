@@ -7,6 +7,7 @@ export default function TextField({
   label,
   type = 'text',
   hint = '',
+  hintPosition = 'above', // 'above' or 'below'
   required = false,
   placeholder,
   value,
@@ -85,13 +86,19 @@ export default function TextField({
         </label>
       )}
 
-      {hint && (
+      {hint && hintPosition === 'above' && (
         <div className="form-field-hint" style={{ whiteSpace: 'pre-line' }}>
           {hint}
         </div>
       )}
 
       <input {...inputProps} />
+
+      {hint && hintPosition === 'below' && (
+        <div className="form-field-hint" style={{ whiteSpace: 'pre-line' }}>
+          {hint}
+        </div>
+      )}
 
       {error && <div className="form-error-text">{error}</div>}
     </div>

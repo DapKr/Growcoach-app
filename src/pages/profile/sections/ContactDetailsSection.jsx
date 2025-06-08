@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '../../../components/form/FormInputs/TextField';
-import CheckboxWithLabel from '../../../components/form/FormInputs/CheckboxWithLabel';
+
 import MultiSelectDropdown from '../../../components/form/FormInputs/MultiSelectDropdown';
 import ProfileImageUpload from '../../../components/form/ProfileImageUpload/ProfileImageUpload';
 
@@ -14,12 +14,11 @@ export default function ContactDetailsSection() {
       ],
     },
     {
-      label: 'אזורי הארץ',
+      label: 'מחוז',
       options: [
         { value: 'north', label: 'צפון' },
         { value: 'haifa', label: 'חיפה' },
         { value: 'center', label: 'מרכז' },
-        { value: 'shfela', label: 'שפלה' },
         { value: 'jerusalem', label: 'ירושלים' },
         { value: 'south', label: 'דרום' },
         { value: 'shomron', label: 'שומרון ובקעה' },
@@ -74,7 +73,7 @@ export default function ContactDetailsSection() {
           />
         </div>
 
-        <div className="form-field-column">
+        <div className="form-field-row">
           <TextField name="fullName" label="שם מלא" required />
 
           <TextField
@@ -82,16 +81,10 @@ export default function ContactDetailsSection() {
             label="טלפון"
             type="tel"
             required
-            hint="כחלק מתהליך האימות, אנו מבקשים מספר טלפון. הוא לא יוצג בפרופיל אלא אם תבחר/י. אם לא – פניות יגיעו אליך במייל בלבד."
+            hint="כחלק מתהליך האימות- אנו מבקשים מספר טלפון. הוא לא יוצג בפרופיל."
+            hintPosition="below"
           />
 
-          <CheckboxWithLabel
-            name="showPhone"
-            label="אני מאשר.ת להציג את מספר הטלפון שלי בפרופיל באתר"
-          />
-        </div>
-
-        <div className="form-field-column">
           <MultiSelectDropdown
             name="serviceAreas"
             label="אזור שירות"
@@ -99,13 +92,6 @@ export default function ContactDetailsSection() {
             options={serviceAreaOptions}
             allowCustom={false}
             filterOption={filterOption}
-          />
-
-          <TextField
-            name="email"
-            label="אימייל ליצירת קשר"
-            hint={`המייל לא מוצג בפרופיל. רק נעביר לשם פניות מההורים.\n\n`}
-            type="email"
           />
         </div>
       </div>

@@ -22,7 +22,7 @@
 .form-field-hint {
   font: var(--text-style-body);
   color: var(--color-mutedtext);
-  margin-bottom: 4px;
+  margin: 4px 0;
   white-space: pre-line;
 }
 

@@ -57,7 +57,10 @@
 /* === Form Section Box === */
 .section-box {
   background-color: var(--color-mainbackground);
-  padding: 20px;
+  padding: 4px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   border-radius: 12px;
   border: 1px solid var(--color-subtlegray1);
   position: relative;
@@ -75,13 +78,21 @@
   gap: 20px;
 }
 
+.form-field-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+}
+
 /* === Grid Layout for Contact Section === */
 .contact-details-grid {
   display: grid;
-  grid-template-columns: 160px 1fr 1fr;
+  grid-template-columns: 140px 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: center;
   direction: rtl;
+  width: 100%;
 }
 
 /* === Grid Layout for Experience Section === */
@@ -107,6 +118,11 @@
     padding: 20px;
   }
 
+  .section-box {
+    gap: 0px;
+  }
+  
+
   .contact-details-grid,
   .experience-grid,
   .supporting-inputs {
@@ -115,16 +131,20 @@
 
   .profile-image-column {
     order: -1;
-    margin-bottom: 24px;
   }
 
   .profile-form-actions {
     flex-direction: column;
   }
+  .form-field-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .supporting-inputs{
+    display: flex;
+    gap: 20px;
+    flex: 1;
+  }
 }
 
-.supporting-inputs{
-  display: flex;
-  gap: 20px;
-  flex: 1;
-}

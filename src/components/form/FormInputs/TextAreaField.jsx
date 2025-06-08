@@ -6,6 +6,7 @@ export default function TextAreaField({
   name,
   label,
   hint = '',
+  hintPosition = 'above', // 'above' or 'below'
   required = false,
   maxLength = 500,
   value,
@@ -75,9 +76,15 @@ export default function TextAreaField({
         </label>
       )}
 
-      {hint && <div className="form-field-hint">{hint}</div>}
+      {hint && hintPosition === 'above' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
 
       <textarea {...textareaProps} />
+
+      {hint && hintPosition === 'below' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
 
       <div className="word-counter">
         {typeof value !== 'undefined' ? value.length : rhfValue.length}/

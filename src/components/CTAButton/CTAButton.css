@@ -29,7 +29,7 @@
 
 .cta-button.small {
   padding: 2px 12px;
-  font-size: 13px;
+  font: var(--text-style-body);
   width: auto;
   min-width: 0;
   max-width: none;

@@ -57,6 +57,7 @@ export default function ProfessionalExperienceSection() {
           name="about"
           label="קצת על עצמך"
           hint="ספר על הרקע והגישה המקצועית שלך. עד 500 תווים."
+          hintPosition="below"
           maxLength={500}
         />
       </div>
