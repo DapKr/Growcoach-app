@@ -70,8 +70,8 @@ export default function TextField({
         }),
         ...(type === 'tel' && {
           pattern: {
-            value: /^[0-9+\-\s()]{6,20}$/,
-            message: 'מספר טלפון לא תקין',
+            value: /^(\+972|0)([23489]|5[0-9]|77)[0-9]{7}$/,
+            message: 'מספר טלפון לא תקין.',
           },
         }),
       })
@@ -94,13 +94,14 @@ export default function TextField({
 
       <input {...inputProps} />
 
+      {/* Error always appears directly under the input, pushing hint/content down */}
+      {error && <div className="form-error-text">{error}</div>}
+
       {hint && hintPosition === 'below' && (
         <div className="form-field-hint" style={{ whiteSpace: 'pre-line' }}>
           {hint}
         </div>
       )}
-
-      {error && <div className="form-error-text">{error}</div>}
     </div>
   );
 }

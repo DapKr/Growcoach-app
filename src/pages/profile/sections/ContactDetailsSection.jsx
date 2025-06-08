@@ -61,7 +61,7 @@ export default function ContactDetailsSection() {
 
   return (
     <section className="section-box">
-      <h2 className="form-section-title">פרטים אישיים</h2>
+      <span className="form-section-title">פרטים אישיים</span>
 
       <div className="contact-details-grid">
         <div className="profile-image-column">

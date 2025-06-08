@@ -7,12 +7,13 @@ export default function LinkListInput({
   name,
   label,
   hint = '',
+  hintPosition = 'above',
   placeholderUrl = 'https://example.com',
   placeholderDesc = 'תיאור קצר (אופציונלי)',
 }) {
   const {
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting, submitCount },
     setError,
     clearErrors,
   } = useFormContext();
@@ -23,6 +24,24 @@ export default function LinkListInput({
   useEffect(() => {
     setValue(name, links);
   }, [links, name, setValue]);
+
+  // On form submit, if url is not empty, validate and add
+  useEffect(() => {
+    if (isSubmitting && url && !links.some((link) => link.url === url)) {
+      try {
+        new URL(url);
+        clearErrors(name);
+        setLinks((prev) => [...prev, { url, desc: '' }]);
+        setUrl('');
+      } catch {
+        setError(name, {
+          type: 'manual',
+          message: 'קישור לא תקין, עדיף להעתיק את הכתובת ולא להזין ידנית',
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitting, submitCount]);
 
   const handleAdd = () => {
     if (!url) {
@@ -37,7 +56,7 @@ export default function LinkListInput({
     } catch {
       setError(name, {
         type: 'manual',
-        message: 'כתובת URL לא תקינה',
+        message: 'קישור לא תקין, עדיף להעתיק את הכתובת ולא להזין ידנית',
       });
     }
   };
@@ -60,8 +79,9 @@ export default function LinkListInput({
   return (
     <div className="form-input-wrapper" dir="rtl">
       {label && <label className="form-field-label">{label}</label>}
-      {hint && <div className="form-field-hint">{hint}</div>}
-
+      {hint && hintPosition === 'above' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
       <div className="link-input-wrapper">
         <input
           type="text"
@@ -70,13 +90,16 @@ export default function LinkListInput({
           onChange={handleUrlChange}
           placeholder={placeholderUrl}
         />
-        <TextButton onClick={handleAdd}>הוספה</TextButton>
       </div>
-
+      <div style={{ textAlign: 'right', marginTop: 4 }}>
+        <TextButton onClick={handleAdd}>הוספת קישור</TextButton>
+      </div>
       {errors[name]?.message && (
         <div className="form-error-text">{errors[name].message}</div>
       )}
-
+      {hint && hintPosition === 'below' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
       <div className="link-list">
         {links.map((item, index) => (
           <div className="link-list-item" key={index}>

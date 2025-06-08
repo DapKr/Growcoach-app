@@ -22,14 +22,12 @@
 .form-field-hint {
   font: var(--text-style-body);
   color: var(--color-mutedtext);
-  margin: 4px 0;
   white-space: pre-line;
 }
 
 .form-error-text {
   font: var(--text-style-body);
   color: var(--color-maintext);
-  margin-top: 4px;
 }
 
 /* === Inputs === */

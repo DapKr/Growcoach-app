@@ -8,6 +8,7 @@ export default function MultiFileUpload({
   name,
   label,
   hint = '',
+  hintPosition = 'above', // 'above' or 'below'
   fileTypes = [], // לדוג׳ ['application/pdf','image/png']
   accept, // לדוג׳ ".pdf,.png,.jpg"
   maxSizeKB = Infinity, // גודל מקסימלי בקילובייט
@@ -71,8 +72,9 @@ export default function MultiFileUpload({
       dir="rtl"
     >
       {label && <label className="form-field-label">{label}</label>}
-      {hint && <div className="form-field-hint">{hint}</div>}
-
+      {hint && hintPosition === 'above' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
       <div style={{ textAlign: 'right' }}>
         <TextButton onClick={onAddClick}>הוספת קובץ</TextButton>
       </div>
@@ -83,7 +85,13 @@ export default function MultiFileUpload({
         style={{ display: 'none' }}
         onChange={onFileChange}
       />
-
+      {/* Error always appears directly under the input, pushing hint/content down */}
+      {errors[name] && (
+        <div className="form-error-text">{errors[name].message}</div>
+      )}
+      {hint && hintPosition === 'below' && (
+        <div className="form-field-hint">{hint}</div>
+      )}
       <div className="link-list">
         {items.map((it, idx) => (
           <div key={idx} className="link-list-item">
@@ -103,10 +111,6 @@ export default function MultiFileUpload({
           </div>
         ))}
       </div>
-
-      {errors[name] && (
-        <div className="form-error-text">{errors[name].message}</div>
-      )}
     </div>
   );
 }

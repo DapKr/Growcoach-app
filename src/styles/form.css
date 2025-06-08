@@ -57,7 +57,7 @@
 /* === Form Section Box === */
 .section-box {
   background-color: var(--color-mainbackground);
-  padding: 4px 20px 20px 20px;
+  padding: 12px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -106,10 +106,26 @@
 
 /* === Supporting Files Section === */
 .supporting-inputs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   margin-top: 24px;
+}
+
+.supporting-inputs-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-section-subtitle {
+  font: var(--text-style-body-large-bold);
+  color: var(--color-maintext);
+}
+
+.form-section-info {
+  font: var(--text-style-body);
+  color: var(--color-maintext);
 }
 
 /* Responsive */
@@ -143,6 +159,7 @@
   
   .supporting-inputs{
     display: flex;
+    flex-direction: column;
     gap: 20px;
     flex: 1;
   }
