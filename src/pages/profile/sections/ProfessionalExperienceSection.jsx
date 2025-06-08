@@ -1,16 +1,12 @@
 // src/pages/profile/sections/ProfessionalExperienceSection.jsx
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import MultiSelectDropdown from '../../../components/form/FormInputs/MultiSelectDropdown';
 import NumberField from '../../../components/form/FormInputs/NumberField';
-import TextField from '../../../components/form/FormInputs/TextField';
+import TextAreaField from '../../../components/form/FormInputs/TextAreaField';
 import MultiFileUpload from '../../../components/form/FormInputs/MultiFileUpload';
 import LinkListInput from '../../../components/form/FormInputs/LinkListInput';
 
 export default function ProfessionalExperienceSection() {
-  const { watch } = useFormContext();
-  const aboutValue = watch('about') || '';
-
   return (
     <section className="section-box">
       <h2 className="form-section-title">נסיון מקצועי</h2>
@@ -57,14 +53,12 @@ export default function ProfessionalExperienceSection() {
 
       {/* טקסט ארוך עם ספירת תווים */}
       <div className="about-section">
-        <TextField
+        <TextAreaField
           name="about"
           label="קצת על עצמך"
           hint="ספר על הרקע והגישה המקצועית שלך. עד 500 תווים."
-          as="textarea"
           maxLength={500}
         />
-        <div className="word-counter">{aboutValue.length}/500</div>
       </div>
 
       {/* שלושת השדות התומכים: תעודות, קישורים לאתרים וקישורים להמלצות */}

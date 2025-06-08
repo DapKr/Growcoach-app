@@ -8,7 +8,7 @@
   border-radius: 8px;
   cursor: pointer;
   max-width: 500px;
-  width: 100%;
+  width: auto;
   text-align: center;
   transition: background-color 0.2s ease;
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .cta-button-text {
-  font: var(--text-style-title-bold);
+  font: var(--text-style-title);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -37,5 +37,5 @@
 }
 
 .cta-button.small .cta-button-text {
-  font: var(--text-style-body-bold);
+  font: var(--text-style-body);
 } 

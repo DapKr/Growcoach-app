@@ -5,7 +5,7 @@ import DismissibleChip from '../../Chips/DismissibleChip';
 import TextButton from '../../TextButton/TextButton';
 import './formInputs.css';
 import ReactDOM from 'react-dom';
-
+import { ReactComponent as ArrowDownSmallIcon } from '../../../icons/arrow-down-small.svg';
 // Simple checkbox component for the menu options
 const MenuCheckbox = ({ label, checked, onChange }) => (
   <div className="checkbox-line">
@@ -13,7 +13,7 @@ const MenuCheckbox = ({ label, checked, onChange }) => (
       type="checkbox"
       checked={checked}
       onChange={onChange}
-      className="menu-checkbox"
+      className="menu-checkbox custom-checkbox"
     />
     <label className="form-checkbox-label">{label}</label>
   </div>
@@ -312,11 +312,7 @@ export default function MultiSelectDropdown({
               נקה בחירה
             </TextButton>
           )}
-          <img
-            src="/assets/Arrow Down Small.svg"
-            alt="Open dropdown"
-            className="dropdown-indicator"
-          />
+          <ArrowDownSmallIcon className="dropdown-indicator" />
         </div>
       </div>
 

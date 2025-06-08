@@ -1,5 +1,6 @@
 import React from 'react';
 import './Chips.css';
+import { ReactComponent as XSmallIcon } from '../../icons/x-small.svg';
 
 export default function DismissibleChip({ label, onDismiss }) {
   return (
@@ -14,11 +15,7 @@ export default function DismissibleChip({ label, onDismiss }) {
         className="chip-dismiss-button"
         aria-label={`Remove ${label}`}
       >
-        <img
-          src="/assets/X Small.svg"
-          alt="Remove"
-          className="chip-dismiss-icon"
-        />
+        <XSmallIcon className="chip-dismiss-icon" />
       </button>
     </div>
   );

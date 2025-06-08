@@ -1,6 +1,6 @@
 import React from 'react';
 import './././bulletList.css';
-
+import { ReactComponent as ListBulletIcon } from '../../icons/list-bullet.svg';
 export const BulletList = ({ title, items, className = '' }) => {
   return (
     <section className={`bullet-list-section rtl ${className}`}>
@@ -8,11 +8,7 @@ export const BulletList = ({ title, items, className = '' }) => {
       <ul className="bullet-list">
         {items.map((item, i) => (
           <li key={i}>
-            <img
-              src="/assets/list-bullet.svg"
-              alt="list bullet"
-              className="bullet-icon"
-            />
+            <ListBulletIcon className="list-bullet-icon" />
             <span>{item}</span>
           </li>
         ))}

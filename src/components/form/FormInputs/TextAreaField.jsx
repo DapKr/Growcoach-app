@@ -24,7 +24,8 @@ export default function TextAreaField({
   const textareaProps = {
     id: name,
     maxLength,
-    rows: 5,
+    rows: 3,
+    wrap: 'soft',
     className: `form-textarea ${error ? 'error' : ''}`,
     onDoubleClick: (e) => {
       e.preventDefault();

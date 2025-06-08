@@ -90,6 +90,7 @@ input[type='checkbox'] {
   cursor: pointer;
   position: relative;
   z-index: 6;
+  border-radius: 4px;
 }
 
 /* === Word Counter === */
@@ -153,7 +154,6 @@ input[type='checkbox'] {
   display: grid;
   gap: 0.5rem;
   padding: 0.5rem;
-  border: 1px solid var(--color-subtlegray1);
   border-radius: var(--border-radius);
   width: 100%;
 }
@@ -265,6 +265,7 @@ input[type='checkbox'] {
 /* === MultiSelectDropdown === */
 .select-control {
   min-height: 44px;
+  height: 44px;
   padding: 0 12px;
   background-color: var(--color-mainbackground);
   border: 1px solid var(--color-subtlegray1);
@@ -273,11 +274,13 @@ input[type='checkbox'] {
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .select-control.menu-open {
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+  height: 44px;
 }
 
 .form-input-wrapper.has-error .select-control {
@@ -293,7 +296,11 @@ input[type='checkbox'] {
   color: var(--color-maintext);
   font: var(--text-style-subtitle);
   width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
   cursor: inherit;
+  box-sizing: border-box;
 }
 
 .select-input::placeholder {
@@ -409,5 +416,71 @@ input[type='checkbox'] {
 }
 
 .form-textarea {
-  touch-action: manipulation;
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: calc(44px * 3); /* 3 lines */
+  padding: 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: inherit;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  background-color: var(--color-mainbackground);
+  color: var(--color-maintext);
+  resize: vertical;
+  overflow-y: auto;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+
+.form-textarea.error {
+  border-color: var(--color-error);
+  background-color: var(--color-errorbackground);
+}
+
+/* Custom Checkbox Styles */
+input[type="checkbox"].custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+  vertical-align: middle;
+  display: inline-block;
+}
+input[type="checkbox"].custom-checkbox:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+input[type="checkbox"].custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 4px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+input[type="checkbox"].custom-checkbox:focus {
+  box-shadow: 0 0 0 2px rgba(51, 97, 246, 0.2);
+}
+/* Remove default accent-color for custom checkboxes */
+input[type="checkbox"].custom-checkbox {
+  accent-color: unset;
 }

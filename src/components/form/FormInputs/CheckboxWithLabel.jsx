@@ -24,6 +24,7 @@ export default function CheckboxWithLabel({
         <input
           id={name}
           type="checkbox"
+          className="custom-checkbox"
           {...register(name, {
             validate: (value) => (required && !value ? 'נא לאשר' : true),
           })}
