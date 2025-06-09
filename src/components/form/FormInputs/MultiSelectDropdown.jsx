@@ -6,6 +6,18 @@ import TextButton from '../../TextButton/TextButton';
 import './formInputs.css';
 import ReactDOM from 'react-dom';
 import { ReactComponent as ArrowDownSmallIcon } from '../../../icons/arrow-down-small.svg';
+
+// Responsive hook
+function useIsMobile(breakpoint = 600) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 // Simple checkbox component for the menu options
 const MenuCheckbox = ({ label, checked, onChange }) => (
   <div className="checkbox-line">
@@ -39,6 +51,8 @@ const CustomDropdownMenu = ({
   onClose,
   onCancel,
   searchText,
+  setSearchText,
+  isMobile = false,
 }) => {
   const menuRef = useRef(null);
 
@@ -60,7 +74,19 @@ const CustomDropdownMenu = ({
     .filter((group) => group.options.length > 0);
 
   return (
-    <div className="custom-dropdown-menu">
+    <div className={isMobile ? 'bottom-sheet-menu' : 'custom-dropdown-menu'}>
+      {isMobile && (
+        <div className="bottom-sheet-search-wrapper">
+          <input
+            type="text"
+            className="bottom-sheet-search-input"
+            placeholder="חפש/י ברשימה..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            autoFocus
+          />
+        </div>
+      )}
       <div className="menu-list" ref={menuRef}>
         {filteredOptions.length > 0 ? (
           filteredOptions.map((group) => (
@@ -116,6 +142,7 @@ export default function MultiSelectDropdown({
     width: 0,
   });
   const [searchText, setSearchText] = useState('');
+  const isMobile = useIsMobile(600);
 
   const transformedOptions = options.map((group) => ({
     label: group.label,
@@ -155,7 +182,7 @@ export default function MultiSelectDropdown({
 
   // Update position when menu opens and on scroll/resize
   useEffect(() => {
-    if (menuIsOpen) {
+    if (menuIsOpen && !isMobile) {
       updateMenuPosition();
 
       // Use both window scroll and document scroll events
@@ -173,7 +200,7 @@ export default function MultiSelectDropdown({
         document.removeEventListener('scroll', handleScroll, true);
       };
     }
-  }, [menuIsOpen]);
+  }, [menuIsOpen, isMobile]);
 
   useEffect(() => {
     if (!menuIsOpen) {
@@ -195,7 +222,9 @@ export default function MultiSelectDropdown({
         menuIsOpen &&
         controlRef.current &&
         !controlRef.current.contains(event.target) &&
-        !event.target.closest('.custom-dropdown-menu')
+        !event.target.closest(
+          isMobile ? '.bottom-sheet-menu' : '.custom-dropdown-menu'
+        )
       ) {
         onChange(tempSelection);
         setMenuIsOpen(false);
@@ -204,7 +233,7 @@ export default function MultiSelectDropdown({
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [menuIsOpen, tempSelection, onChange]);
+  }, [menuIsOpen, tempSelection, onChange, isMobile]);
 
   useEffect(() => {
     if (!menuIsOpen) {
@@ -255,6 +284,7 @@ export default function MultiSelectDropdown({
   // Portal rendering for dropdown menu
   const menuPortal =
     menuIsOpen &&
+    !isMobile &&
     ReactDOM.createPortal(
       <div
         className="menu-portal"
@@ -273,14 +303,37 @@ export default function MultiSelectDropdown({
           onClose={handleMenuClose}
           onCancel={handleMenuCancel}
           searchText={searchText}
+          setSearchText={setSearchText}
         />
+      </div>,
+      document.body
+    );
+
+  // Bottom sheet portal for mobile
+  const bottomSheetPortal =
+    menuIsOpen &&
+    isMobile &&
+    ReactDOM.createPortal(
+      <div className="bottom-sheet-backdrop" onClick={handleMenuCancel}>
+        <div className="bottom-sheet-menu" onClick={(e) => e.stopPropagation()}>
+          <CustomDropdownMenu
+            options={transformedOptions}
+            tempSelection={tempSelection}
+            setTempSelection={setTempSelection}
+            onClose={handleMenuClose}
+            onCancel={handleMenuCancel}
+            searchText={searchText}
+            setSearchText={setSearchText}
+            isMobile={true}
+          />
+        </div>
       </div>,
       document.body
     );
 
   return (
     <div
-      className={`form-input-wrapper ${error ? 'has-error' : ''}`}
+      className={`form-input-wrapper ${error ? 'has-error' : ''} ${menuIsOpen && isMobile ? 'dropdown-mobile-open' : ''}`}
       dir="rtl"
       style={{ position: 'relative' }}
     >
@@ -295,17 +348,19 @@ export default function MultiSelectDropdown({
         className={`select-control ${menuIsOpen ? 'menu-open' : ''}`}
         onClick={() => !menuIsOpen && setMenuIsOpen(true)}
       >
-        <input
-          type="text"
-          className="select-input"
-          placeholder={
-            value?.length > 0 ? `${value.length} נבחרו` : 'בחר/י מהרשימה...'
-          }
-          value={menuIsOpen ? searchText : ''}
-          onChange={handleInputChange}
-          onFocus={() => !menuIsOpen && setMenuIsOpen(true)}
-          readOnly={!menuIsOpen}
-        />
+        {!isMobile && (
+          <input
+            type="text"
+            className="select-input"
+            placeholder={
+              value?.length > 0 ? `${value.length} נבחרו` : 'בחר/י מהרשימה...'
+            }
+            value={menuIsOpen ? searchText : ''}
+            onChange={handleInputChange}
+            onFocus={() => !menuIsOpen && setMenuIsOpen(true)}
+            readOnly={!menuIsOpen}
+          />
+        )}
         <div className="select-indicators">
           {value?.length > 0 && (
             <TextButton onClick={handleClearAll} tabIndex={-1}>
@@ -317,6 +372,7 @@ export default function MultiSelectDropdown({
       </div>
 
       {menuPortal}
+      {bottomSheetPortal}
 
       {value?.length > 0 && (
         <div

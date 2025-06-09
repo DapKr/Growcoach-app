@@ -2,17 +2,18 @@ import React, { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import TextField from './TextField';
 import TextButton from '../../TextButton/TextButton';
+import CTAButton from '../../CTAButton/CTAButton';
 import './formInputs.css';
 
 export default function MultiFileUpload({
   name,
   label,
   hint = '',
-  hintPosition = 'above', // 'above' or 'below'
   fileTypes = [], // לדוג׳ ['application/pdf','image/png']
   accept, // לדוג׳ ".pdf,.png,.jpg"
   maxSizeKB = Infinity, // גודל מקסימלי בקילובייט
 }) {
+  const inputRef = useRef(null);
   const {
     watch,
     setValue,
@@ -20,7 +21,6 @@ export default function MultiFileUpload({
   } = useFormContext();
 
   const items = watch(name) || [];
-  const inputRef = useRef();
 
   // קובעים את ה־accept לפקודת ה־input
   const acceptAttr = accept
@@ -29,7 +29,8 @@ export default function MultiFileUpload({
       ? fileTypes.join(',')
       : undefined;
 
-  const onAddClick = () => {
+  const onAddClick = (e) => {
+    e.preventDefault();
     inputRef.current.click();
   };
 
@@ -72,11 +73,10 @@ export default function MultiFileUpload({
       dir="rtl"
     >
       {label && <label className="form-field-label">{label}</label>}
-      {hint && hintPosition === 'above' && (
-        <div className="form-field-hint">{hint}</div>
-      )}
       <div style={{ textAlign: 'right' }}>
-        <TextButton onClick={onAddClick}>הוספת קובץ</TextButton>
+        <CTAButton variant="secondary" onClick={onAddClick} type="button">
+          הוספת קובץ
+        </CTAButton>
       </div>
       <input
         ref={inputRef}
@@ -85,13 +85,10 @@ export default function MultiFileUpload({
         style={{ display: 'none' }}
         onChange={onFileChange}
       />
-      {/* Error always appears directly under the input, pushing hint/content down */}
       {errors[name] && (
         <div className="form-error-text">{errors[name].message}</div>
       )}
-      {hint && hintPosition === 'below' && (
-        <div className="form-field-hint">{hint}</div>
-      )}
+      {hint && <div className="form-field-hint">{hint}</div>}
       <div className="link-list">
         {items.map((it, idx) => (
           <div key={idx} className="link-list-item">
@@ -106,7 +103,7 @@ export default function MultiFileUpload({
               type="text"
               value={it.description}
               onChange={(e) => onDescChange(idx, e.target.value)}
-              placeholder="תיאור קצר (אופציונלי)"
+              placeholder="תיאור קצר"
             />
           </div>
         ))}

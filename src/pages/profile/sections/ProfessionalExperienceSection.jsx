@@ -107,7 +107,7 @@ export default function ProfessionalExperienceSection() {
             name="experienceYears"
             label="שנות נסיון"
             min={0}
-            max={99}
+            max={80}
             required
           />
         </div>
@@ -195,7 +195,7 @@ export default function ProfessionalExperienceSection() {
             <MultiFileUpload
               name="certificates"
               label="תעודות הסמכה"
-              hint="עד 2MB לקובץ"
+              hint="עד 2MB לקובץ. התעודות הן לאימות בלבד ולא יוצגו בפרופיל."
               fileTypes={['application/pdf', 'image/jpeg', 'image/png']}
               maxSizeKB={2048}
             />

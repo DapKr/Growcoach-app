@@ -14,14 +14,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 44px;
 }
 
 .cta-button:hover {
   background-color: var(--color-primarymuted3);
 }
 
+.cta-button.secondary {
+  background-color: var(--color-mainbackground);
+  color: var(--color-maintext);
+  border: 1px solid var(--color-subtlegray1);
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--color-gray-200);
+}
+
 .cta-button-text {
-  font: var(--text-style-title);
+  font: var(--text-style-subtitle);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -38,4 +49,4 @@
 
 .cta-button.small .cta-button-text {
   font: var(--text-style-body);
-} 
+}
