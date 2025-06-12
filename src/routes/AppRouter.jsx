@@ -5,7 +5,6 @@ import CoachSignupForm from '../pages/CoachSignupForm';
 import CoachDashboard from '../pages/CoachDashboard';
 import HomeParentLanding from '../pages/HomeParentLanding';
 import ParentForm from '../pages/ParentForm';
-import Login from '../pages/Login';
 import ContactForm from '../pages/ContactForm';
 import Message48Hours from '../pages/Message48Hours';
 import ProfileForm from '../pages/profile/ProfileForm';
@@ -18,7 +17,6 @@ export default function AppRouter() {
         <Route path="/coach" element={<CoachLanding />} />
         <Route path="/coach-signup" element={<CoachSignupForm />} />
         <Route path="/dashboard" element={<CoachDashboard />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<ContactForm />} />
         <Route path="/parent-form" element={<ParentForm />} />
         <Route path="/message" element={<Message48Hours />} />

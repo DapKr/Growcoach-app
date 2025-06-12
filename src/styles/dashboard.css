@@ -1,0 +1,207 @@
+@import './tokens.css';
+
+/* Dashboard Container */
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+/* Section Styles */
+.dashboard-section {
+  margin-bottom: 32px;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 12px;
+}
+.dashboard-section-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.dashboard-section-title {
+  font-weight: 600;
+}
+.dashboard-section-content {
+  padding: 16px;
+}
+.dashboard-empty {
+  color: #888;
+  padding: 16px 0;
+  text-align: center;
+}
+
+/* Inbox Styles */
+.dashboard-message-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dashboard-message-item {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: #fffbe6;
+  transition: background 0.2s;
+}
+.dashboard-message-item.read {
+  background: #fafafa;
+}
+.dashboard-message-item.selected {
+  background: #e6f7ff;
+}
+.dashboard-message-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dashboard-message-sender {
+  font-weight: 700;
+}
+.dashboard-message-subject {
+  margin: 0 8px;
+  color: #888;
+}
+.dashboard-message-date {
+  font-size: 12px;
+  color: #aaa;
+}
+.dashboard-message-flag {
+  color: red;
+  margin-right: 8px;
+}
+.dashboard-message-actions > * {
+  margin-left: 8px;
+}
+
+.dashboard-message-detail {
+  margin-top: 16px;
+  background: #f0f8ff;
+  border-radius: 8px;
+  padding: 16px;
+}
+.dashboard-message-detail-sender {
+  font-weight: 700;
+}
+.dashboard-message-detail-meta {
+  color: #888;
+  margin-bottom: 8px;
+}
+.dashboard-message-detail-content {
+  margin-bottom: 12px;
+}
+.dashboard-message-detail-close {
+  text-align: left;
+}
+
+/* Profile Preview Styles */
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.profile-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-left: 24px;
+  object-fit: cover;
+}
+.profile-header-info {
+  flex: 1;
+}
+.profile-name {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.profile-meta-row {
+  margin-bottom: 2px;
+}
+.profile-meta-label {
+  font-weight: 600;
+  margin-left: 4px;
+}
+.profile-about-section {
+  margin-bottom: 16px;
+}
+.profile-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.profile-about-text {
+  margin-bottom: 8px;
+}
+.profile-recommendations-section {
+  margin-top: 12px;
+}
+.profile-recommendation {
+  margin-bottom: 8px;
+}
+.profile-recommendation-header {
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+}
+.profile-recommendation-content {
+  margin-right: 8px;
+  color: #444;
+}
+.profile-edit-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+/* Profile Area in Header */
+.profile-area {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: auto;
+}
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 8px;
+}
+.profile-hello {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+/* Account Modal */
+.account-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.account-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px;
+  min-width: 320px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}

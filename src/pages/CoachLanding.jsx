@@ -1,15 +1,24 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import StickyHeader from '../components/StickyHeader/StickyHeader.jsx';
 import { BulletList } from '../components/BulletList/BulletList.jsx';
 import CTAButton from '../components/CTAButton/CTAButton.jsx';
+import AuthModal from '../components/Login.jsx';
 import '../styles/landingpage.css';
 
 export default function CoachLanding() {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate('/coach-signup'); // or whatever your profile route is
+  const [showAuth, setShowAuth] = useState(false);
+  const [authMode, setAuthMode] = useState('signup');
+
+  const handleSignupClick = () => {
+    setAuthMode('signup');
+    setShowAuth(true);
   };
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    setAuthMode('login');
+    setShowAuth(true);
+  };
+
   return (
     <>
       <div className="landing-container">
@@ -71,19 +80,30 @@ export default function CoachLanding() {
         </main>
         <div className="cta-desktop">
           <div className="fab-container">
-            <CTAButton onClick={handleClick}>להצטרפות</CTAButton>
+            <CTAButton onClick={handleSignupClick}>להצטרפות</CTAButton>
             <div className="cta-caption">
-              משתמש קיים? <a href="/login">כניסה למערכת</a>
+              משתמש קיים?{' '}
+              <a href="#" onClick={handleLoginClick}>
+                כניסה למערכת
+              </a>
             </div>
           </div>
         </div>
       </div>
       <div className="cta-mobile">
-        <CTAButton onClick={handleClick}>להצטרפות</CTAButton>
+        <CTAButton onClick={handleSignupClick}>להצטרפות</CTAButton>
         <div className="cta-caption">
-          משתמש קיים? <a href="/login">כניסה למערכת</a>
+          משתמש קיים?{' '}
+          <a href="#" onClick={handleLoginClick}>
+            כניסה למערכת
+          </a>
         </div>
       </div>
+      <AuthModal
+        open={showAuth}
+        onClose={() => setShowAuth(false)}
+        mode={authMode}
+      />
     </>
   );
 }

@@ -1,82 +1,110 @@
 :root {
-/*=======COLORS==========*/
---color-primary: #3361F6;
---color-inverse-maintext: #FFFFFF;
---color-primarymuted1: #E6ECFF;
---color-primarymuted2: #B3C3FA;
---color-primarymuted3: #1F4CD9;
---color-secondary: #F67E36;
---color-secondarymuted: #FCD8C2;
---color-maintext: #0F0F11;
---color-mutedtext: #6C6F75;
---color-mainbackground: #FFFFFF;
---color-mutedbackground: #F2F3F5;
---color-subtlegray1: #C8CBD1;
---color-error: #F31E1E;
---color-errorbackground: #FEE4E4;
+  /*=======COLORS==========*/
+  --color-primary: #3361f6;
+  --color-inverse-maintext: #ffffff;
+  --color-primarymuted1: #e6ecff;
+  --color-primarymuted2: #b3c3fa;
+  --color-primarymuted3: #1f4cd9;
+  --color-secondary: #f67e36;
+  --color-secondarymuted: #fcd8c2;
+  --color-maintext: #0f0f11;
+  --color-mutedtext: #6c6f75;
+  --color-mainbackground: #ffffff;
+  --color-mutedbackground: #f2f3f5;
+  --color-subtlegray1: #dee0e2;
+  --color-error: #f31e1e;
+  --color-errorbackground: #fee4e4;
 
-/*=======FONT SIZES==========*/
---font-size-6xl: 4.75rem;  /* 76px → line-height: 1.1 */
---font-size-5xl: 3.75rem;  /* 60px → line-height: 1.15 */
---font-size-4xl: 3rem;     /* 48px → line-height: 1.2 */
---font-size-3xl: 2.5rem;   /* 40px → line-height: 1.2 */
---font-size-xxl: 2rem;     /* 32px → line-height: 1.3 */
---font-size-xl: 1.75rem;   /* 28px → line-height: 1.3 */
---font-size-large: 1.5rem; /* 24px → line-height: 1.4 */
---font-size-medium: 1.125rem; /* 18px → line-height: 1.5 */
---font-size-small-plus: 1rem; /* 16px → line-height: 1.5 */
---font-size-small: 0.875rem;  /* 14px → line-height: 1.5–1.6 */
---font-size-xs: 0.75rem;      /* 12px → line-height: 1.4–1.5 */
+  /*=======FONT SIZES==========*/
+  --font-size-6xl: 4.75rem; /* 76px → line-height: 1.1 */
+  --font-size-5xl: 3.75rem; /* 60px → line-height: 1.15 */
+  --font-size-4xl: 3rem; /* 48px → line-height: 1.2 */
+  --font-size-3xl: 2.5rem; /* 40px → line-height: 1.2 */
+  --font-size-xxl: 2rem; /* 32px → line-height: 1.3 */
+  --font-size-xl: 1.75rem; /* 28px → line-height: 1.3 */
+  --font-size-large: 1.5rem; /* 24px → line-height: 1.4 */
+  --font-size-medium: 1.125rem; /* 18px → line-height: 1.5 */
+  --font-size-small-plus: 1rem; /* 16px → line-height: 1.5 */
+  --font-size-small: 0.875rem; /* 14px → line-height: 1.5–1.6 */
+  --font-size-xs: 0.75rem; /* 12px → line-height: 1.4–1.5 */
 
- /* =======LINE HEIGHTS==========* */
-  --line-height-6xl: 1.1;   /* for 76px */
-  --line-height-5xl: 1.15;  /* for 60px */
-  --line-height-4xl: 1.2;   /* for 48px */
-  --line-height-3xl: 1.2;   /* for 40px */
-  --line-height-xxl: 1.3;   /* for 32px */
-  --line-height-xl: 1.3;    /* for 28px */
+  /* =======LINE HEIGHTS==========* */
+  --line-height-6xl: 1.1; /* for 76px */
+  --line-height-5xl: 1.15; /* for 60px */
+  --line-height-4xl: 1.2; /* for 48px */
+  --line-height-3xl: 1.2; /* for 40px */
+  --line-height-xxl: 1.3; /* for 32px */
+  --line-height-xl: 1.3; /* for 28px */
   --line-height-large: 1.4; /* for 24px */
   --line-height-medium: 1.5; /* for 18px */
-  --line-height-small-plus: 1.3;  /* for 16px */
-  --line-height-small: 1.3;  /* for 14px */
-  --line-height-xs: 1.4;     /* for 12px */
+  --line-height-small-plus: 1.3; /* for 16px */
+  --line-height-small: 1.3; /* for 14px */
+  --line-height-xs: 1.4; /* for 12px */
 
-/*=======FONT WEIGHTS==========*/
---font-weight-regular: 400;
---font-weight-bold: 700;
---font-weight-light: 150;
+  /*=======FONT WEIGHTS==========*/
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  --font-weight-light: 150;
 
-/*=======FONT FAMALIES==========*/
---font-family-english: "Patua One", cursive;
---font-family-hebrew: "Rubik", sans-serif;
+  /*=======FONT FAMALIES==========*/
+  --font-family-english: 'Patua One', cursive;
+  --font-family-hebrew: 'Rubik', sans-serif;
 
-/*=======HEBREW TEXT STYLES==========*/
---text-style-h1-bold: var(--font-weight-bold) var(--font-size-6xl)/var(--line-height-6xl) var(--font-family-hebrew);
---text-style-h1: var(--font-weight-regular) var(--font-size-6xl)/var(--line-height-6xl) var(--font-family-hebrew);
---text-style-h2-light: var(--font-weight-light) var(--font-size-5xl)/var(--line-height-5xl) var(--font-family-hebrew);
---text-style-h3-bold: var(--font-weight-bold) var(--font-size-4xl)/var(--line-height-4xl) var(--font-family-hebrew);
---text-style-h3: var(--font-weight-regular) var(--font-size-4xl)/var(--line-height-4xl) var(--font-family-hebrew);
---text-style-h3-light: var(--font-weight-light) var(--font-size-4xl)/var(--line-height-4xl) var(--font-family-hebrew);
---text-style-h4-bold: var(--font-weight-bold) var(--font-size-3xl)/var(--line-height-3xl) var(--font-family-hebrew);
---text-style-h4: var(--font-weight-regular) var(--font-size-3xl)/var(--line-height-3xl) var(--font-family-hebrew);
---text-style-h4-light: var(--font-weight-light) var(--font-size-3xl)/var(--line-height-3xl) var(--font-family-hebrew);
---text-style-h5-bold: var(--font-weight-bold) var(--font-size-xl)/var(--line-height-xl) var(--font-family-hebrew);
---text-style-h5: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-xl) var(--font-family-hebrew);
---text-style-h5-light: var(--font-weight-light) var(--font-size-xl)/var(--line-height-xl) var(--font-family-hebrew);
---text-style-title-bold: var(--font-weight-bold) var(--font-size-large)/var(--line-height-large) var(--font-family-hebrew);
---text-style-title: var(--font-weight-regular) var(--font-size-large)/var(--line-height-large) var(--font-family-hebrew);
---text-style-title-light: var(--font-weight-light) var(--font-size-large)/var(--line-height-large) var(--font-family-hebrew);
---text-style-subtitle-bold: var(--font-weight-bold) var(--font-size-medium)/var(--line-height-medium) var(--font-family-hebrew);
---text-style-subtitle: var(--font-weight-regular) var(--font-size-medium)/var(--line-height-medium) var(--font-family-hebrew);
---text-style-body-large-bold: var(--font-weight-bold) var(--font-size-small-plus)/var(--line-height-small-plus) var(--font-family-hebrew);
---text-style-body-large: var(--font-weight-regular) var(--font-size-small-plus)/var(--line-height-small-plus) var(--font-family-hebrew);
---text-style-body-bold: var(--font-weight-bold) var(--font-size-small)/var(--line-height-small) var(--font-family-hebrew);
---text-style-body: var(--font-weight-regular) var(--font-size-small)/var(--line-height-small) var(--font-family-hebrew);
---text-style-small: var(--font-weight-regular) var(--font-size-xs)/var(--line-height-xs) var(--font-family-hebrew);
+  /*=======HEBREW TEXT STYLES==========*/
+  --text-style-h1-bold: var(--font-weight-bold) var(--font-size-6xl) /
+    var(--line-height-6xl) var(--font-family-hebrew);
+  --text-style-h1: var(--font-weight-regular) var(--font-size-6xl) /
+    var(--line-height-6xl) var(--font-family-hebrew);
+  --text-style-h2-light: var(--font-weight-light) var(--font-size-5xl) /
+    var(--line-height-5xl) var(--font-family-hebrew);
+  --text-style-h3-bold: var(--font-weight-bold) var(--font-size-4xl) /
+    var(--line-height-4xl) var(--font-family-hebrew);
+  --text-style-h3: var(--font-weight-regular) var(--font-size-4xl) /
+    var(--line-height-4xl) var(--font-family-hebrew);
+  --text-style-h3-light: var(--font-weight-light) var(--font-size-4xl) /
+    var(--line-height-4xl) var(--font-family-hebrew);
+  --text-style-h4-bold: var(--font-weight-bold) var(--font-size-3xl) /
+    var(--line-height-3xl) var(--font-family-hebrew);
+  --text-style-h4: var(--font-weight-regular) var(--font-size-3xl) /
+    var(--line-height-3xl) var(--font-family-hebrew);
+  --text-style-h4-light: var(--font-weight-light) var(--font-size-3xl) /
+    var(--line-height-3xl) var(--font-family-hebrew);
+  --text-style-h5-bold: var(--font-weight-bold) var(--font-size-xl) /
+    var(--line-height-xl) var(--font-family-hebrew);
+  --text-style-h5: var(--font-weight-regular) var(--font-size-xl) /
+    var(--line-height-xl) var(--font-family-hebrew);
+  --text-style-h5-light: var(--font-weight-light) var(--font-size-xl) /
+    var(--line-height-xl) var(--font-family-hebrew);
+  --text-style-title-bold: var(--font-weight-bold) var(--font-size-large) /
+    var(--line-height-large) var(--font-family-hebrew);
+  --text-style-title: var(--font-weight-regular) var(--font-size-large) /
+    var(--line-height-large) var(--font-family-hebrew);
+  --text-style-title-light: var(--font-weight-light) var(--font-size-large) /
+    var(--line-height-large) var(--font-family-hebrew);
+  --text-style-subtitle-bold: var(--font-weight-bold) var(--font-size-medium) /
+    var(--line-height-medium) var(--font-family-hebrew);
+  --text-style-subtitle: var(--font-weight-regular) var(--font-size-medium) /
+    var(--line-height-medium) var(--font-family-hebrew);
+  --text-style-body-large-bold: var(--font-weight-bold)
+    var(--font-size-small-plus) / var(--line-height-small-plus)
+    var(--font-family-hebrew);
+  --text-style-body-large: var(--font-weight-regular)
+    var(--font-size-small-plus) / var(--line-height-small-plus)
+    var(--font-family-hebrew);
+  --text-style-body-bold: var(--font-weight-bold) var(--font-size-small) /
+    var(--line-height-small) var(--font-family-hebrew);
+  --text-style-body: var(--font-weight-regular) var(--font-size-small) /
+    var(--line-height-small) var(--font-family-hebrew);
+  --text-style-small: var(--font-weight-regular) var(--font-size-xs) /
+    var(--line-height-xs) var(--font-family-hebrew);
 
-/*=======ENGLISH TEXT STYLES==========*/
+  /*=======ENGLISH TEXT STYLES==========*/
 
---text-style-h5-english: var(--font-weight-regular) var(--font-size-xl)/var(--line-height-xl) var(--font-family-english);
---text-style-title-english: var(--font-weight-regular) var(--font-size-large)/var(--line-height-large) var(--font-family-english);
---text-style-subtitle-english: var(--font-weight-regular) var(--font-size-medium)/var(--line-height-medium) var(--font-family-english);
+  --text-style-h5-english: var(--font-weight-regular) var(--font-size-xl) /
+    var(--line-height-xl) var(--font-family-english);
+  --text-style-title-english: var(--font-weight-regular)
+    var(--font-size-large) / var(--line-height-large) var(--font-family-english);
+  --text-style-subtitle-english: var(--font-weight-regular)
+    var(--font-size-medium) / var(--line-height-medium)
+    var(--font-family-english);
 }
