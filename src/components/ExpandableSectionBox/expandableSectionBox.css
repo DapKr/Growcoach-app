@@ -1,0 +1,29 @@
+@import '../../styles/tokens.css';
+
+.expandable-section-container {
+  margin-bottom: 32px;
+  border: 1px solid var(--color-subtlegray1);
+  border-radius: 12px;
+}
+.expandable-section-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.expandable-section-title {
+  font-weight: 600;
+}
+.expandable-section-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+.expandable-section-content {
+  padding: 16px;
+}

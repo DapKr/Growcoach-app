@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import StickyHeader from '../components/StickyHeader/StickyHeader';
 import TextButton from '../components/TextButton/TextButton';
+import MessageList from '../components/messages/MessageList';
+import { ReactComponent as ArrowLeftSmallIcon } from '../icons/arrow-left-small.svg';
+import { ReactComponent as ArrowDownSmallIcon } from '../icons/arrow-down-small.svg';
 import '../components/StickyHeader/stickyHeader.css';
 import '../styles/dashboard.css';
 
@@ -10,29 +13,117 @@ export default function CoachDashboard() {
   const [profileOpen, setProfileOpen] = useState(true);
   const [showAccount, setShowAccount] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [page, setPage] = useState(1);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // Mock messages
   const [messages, setMessages] = useState([
     {
       id: 1,
-      sender: 'הורה: אלה ר',
-      subject: 'התייעצות שינה לילד בן שנתיים',
-      date: '14/05/2025',
-      content:
-        'שלום, אשמח להתייעץ לגבי שינה לילד בן שנתיים. האם אפשר לקבוע שיחה?',
+      sender: 'מאיה א',
+      subject: 'יועצת לשינה לתינוקת בת שנה וחצי',
+      date: new Date().toISOString(),
       read: false,
       flagged: false,
     },
     {
       id: 2,
-      sender: 'הורה: דנה ל',
-      subject: 'הדרכת הורים',
-      date: '01/05/2025',
-      content: 'היי, אשמח לשמוע על תהליך ההדרכה שלך. תודה!',
+      sender: 'תמר ב',
+      subject: 'שאלות על שינה של ילדה בת שנתיים',
+      date: new Date(Date.now() - 86400000).toISOString(), // yesterday
+      read: false,
+      flagged: true,
+    },
+    {
+      id: 3,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
       read: true,
       flagged: false,
     },
+    // ...add more mock messages as needed
   ]);
+
+  // Message actions
+  const handleSelect = (msgOrAll, checked) => {
+    if (msgOrAll === 'all') {
+      // Select all on current page
+      const pageIds = pagedMessages().map((m) => m.id);
+      setSelectedIds(
+        checked
+          ? Array.from(new Set([...selectedIds, ...pageIds]))
+          : selectedIds.filter((id) => !pageIds.includes(id))
+      );
+    } else {
+      setSelectedIds((ids) =>
+        checked ? [...ids, msgOrAll.id] : ids.filter((id) => id !== msgOrAll.id)
+      );
+    }
+  };
+
+  const handleBatchAction = (action, ids) => {
+    setMessages((msgs) =>
+      msgs
+        .map((msg) =>
+          ids.includes(msg.id)
+            ? action === 'read'
+              ? { ...msg, read: !msg.read }
+              : action === 'flag'
+                ? { ...msg, flagged: !msg.flagged }
+                : action === 'delete'
+                  ? null
+                  : msg
+            : msg
+        )
+        .filter(Boolean)
+    );
+    setSelectedIds([]);
+  };
+
+  const handleRefresh = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 800); // Simulate refresh
+  };
+
+  const handleMessageClick = (msg) => {
+    setSelectedMessage(msg);
+    // You can show a modal or navigate to a message view here
+  };
+
+  const handleMessageAction = (action, msg) => {
+    setMessages((msgs) =>
+      msgs
+        .map((m) =>
+          m.id === msg.id
+            ? action === 'read'
+              ? { ...m, read: !m.read }
+              : action === 'flag'
+                ? { ...m, flagged: !m.flagged }
+                : action === 'delete'
+                  ? null
+                  : m
+            : m
+        )
+        .filter(Boolean)
+    );
+    if (
+      action === 'delete' &&
+      selectedMessage &&
+      selectedMessage.id === msg.id
+    ) {
+      setSelectedMessage(null);
+    }
+  };
+
+  // Helper to get paged messages for selection
+  const pagedMessages = () => {
+    const PAGE_SIZE = 20;
+    const startIdx = (page - 1) * PAGE_SIZE;
+    const endIdx = Math.min(startIdx + PAGE_SIZE, messages.length);
+    return messages.slice(startIdx, endIdx);
+  };
 
   // Mock profile data
   const profile = {
@@ -66,24 +157,6 @@ export default function CoachDashboard() {
     can_edit: true,
   };
 
-  // Message actions
-  const handleMarkRead = (id, read) => {
-    setMessages((msgs) =>
-      msgs.map((msg) => (msg.id === id ? { ...msg, read } : msg))
-    );
-  };
-  const handleDelete = (id) => {
-    setMessages((msgs) => msgs.filter((msg) => msg.id !== id));
-    if (selectedMessage && selectedMessage.id === id) setSelectedMessage(null);
-  };
-  const handleFlag = (id) => {
-    setMessages((msgs) =>
-      msgs.map((msg) =>
-        msg.id === id ? { ...msg, flagged: !msg.flagged } : msg
-      )
-    );
-  };
-
   // Account settings modal (placeholder)
   const AccountModal = () => (
     <div
@@ -113,104 +186,40 @@ export default function CoachDashboard() {
 
       <div className="dashboard-container">
         {/* Inbox Section */}
-        <section className="dashboard-section">
+        <div className="dashboard-section">
           <div
             className="dashboard-section-header"
             onClick={() => setInboxOpen((open) => !open)}
           >
+            {inboxOpen ? <ArrowDownSmallIcon /> : <ArrowLeftSmallIcon />}
             <span className="dashboard-section-title">הודעות</span>
-            <span>{inboxOpen ? '▲' : '▼'}</span>
           </div>
           {inboxOpen && (
             <div className="dashboard-section-content">
-              {messages.length === 0 ? (
-                <div className="dashboard-empty">אין הודעות בתיבה.</div>
-              ) : (
-                <ul className="dashboard-message-list">
-                  {messages.map((msg) => (
-                    <li
-                      key={msg.id}
-                      className={`dashboard-message-item${selectedMessage && selectedMessage.id === msg.id ? ' selected' : ''}${msg.read ? ' read' : ' unread'}`}
-                      onClick={() => setSelectedMessage(msg)}
-                    >
-                      <div className="dashboard-message-info">
-                        <span className="dashboard-message-sender">
-                          {msg.sender}
-                        </span>
-                        <span className="dashboard-message-subject">
-                          {msg.subject}
-                        </span>
-                        <span className="dashboard-message-date">
-                          {msg.date}
-                        </span>
-                        {msg.flagged && (
-                          <span className="dashboard-message-flag">⚑</span>
-                        )}
-                      </div>
-                      <div className="dashboard-message-actions">
-                        <TextButton
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleMarkRead(msg.id, !msg.read);
-                          }}
-                        >
-                          {msg.read ? 'סמן כלא נקרא' : 'סמן כנקרא'}
-                        </TextButton>
-                        <TextButton
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleFlag(msg.id);
-                          }}
-                        >
-                          {msg.flagged ? 'בטל דגל' : 'סמן כדגל'}
-                        </TextButton>
-                        <TextButton
-                          size="small"
-                          color="danger"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDelete(msg.id);
-                          }}
-                        >
-                          מחק
-                        </TextButton>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {selectedMessage && (
-                <div className="dashboard-message-detail">
-                  <div className="dashboard-message-detail-sender">
-                    {selectedMessage.sender}
-                  </div>
-                  <div className="dashboard-message-detail-meta">
-                    {selectedMessage.subject} | {selectedMessage.date}
-                  </div>
-                  <div className="dashboard-message-detail-content">
-                    {selectedMessage.content}
-                  </div>
-                  <div className="dashboard-message-detail-close">
-                    <TextButton onClick={() => setSelectedMessage(null)}>
-                      סגור
-                    </TextButton>
-                  </div>
-                </div>
-              )}
+              <MessageList
+                messages={messages}
+                selectedIds={selectedIds}
+                onSelect={handleSelect}
+                onBatchAction={handleBatchAction}
+                onRefresh={handleRefresh}
+                onMessageClick={handleMessageClick}
+                onMessageAction={handleMessageAction}
+                page={page}
+                setPage={setPage}
+                loading={loading}
+              />
             </div>
           )}
-        </section>
+        </div>
 
         {/* Profile Preview Section */}
-        <section className="dashboard-section">
+        <div className="dashboard-section">
           <div
             className="dashboard-section-header"
             onClick={() => setProfileOpen((open) => !open)}
           >
+            {profileOpen ? <ArrowDownSmallIcon /> : <ArrowLeftSmallIcon />}
             <span className="dashboard-section-title">פרטי פרופיל</span>
-            <span>{profileOpen ? '▲' : '▼'}</span>
           </div>
           {profileOpen && (
             <div className="dashboard-section-content">
@@ -281,7 +290,7 @@ export default function CoachDashboard() {
               </div>
             </div>
           )}
-        </section>
+        </div>
       </div>
     </div>
   );

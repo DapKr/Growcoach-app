@@ -10,10 +10,10 @@
   --color-maintext: #0f0f11;
   --color-mutedtext: #6c6f75;
   --color-mainbackground: #ffffff;
-  --color-mutedbackground: #f2f3f5;
-  --color-subtlegray1: #dee0e2;
+  --color-mutedbackground: #f2f2f2;
+  --color-subtlegray1: #d8d9db;
   --color-error: #f31e1e;
-  --color-errorbackground: #fee4e4;
+  --color-errorbackground: #ffeeee;
 
   /*=======FONT SIZES==========*/
   --font-size-6xl: 4.75rem; /* 76px → line-height: 1.1 */

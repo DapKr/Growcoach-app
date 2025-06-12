@@ -27,6 +27,11 @@
 .dashboard-section-title {
   font-weight: 600;
 }
+.dashboard-section-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
 .dashboard-section-content {
   padding: 16px;
 }
