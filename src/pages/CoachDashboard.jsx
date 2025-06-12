@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StickyHeader from '../components/StickyHeader/StickyHeader';
 import TextButton from '../components/TextButton/TextButton';
 import MessageList from '../components/messages/MessageList';
+import ExpandableSectionBox from '../components/ExpandableSectionBox/ExpandableSectionBox';
 import { ReactComponent as ArrowLeftSmallIcon } from '../icons/arrow-left-small.svg';
 import { ReactComponent as ArrowDownSmallIcon } from '../icons/arrow-down-small.svg';
 import '../components/StickyHeader/stickyHeader.css';
@@ -186,111 +187,101 @@ export default function CoachDashboard() {
 
       <div className="dashboard-container">
         {/* Inbox Section */}
-        <div className="dashboard-section">
-          <div
-            className="dashboard-section-header"
-            onClick={() => setInboxOpen((open) => !open)}
-          >
-            {inboxOpen ? <ArrowDownSmallIcon /> : <ArrowLeftSmallIcon />}
-            <span className="dashboard-section-title">הודעות</span>
-          </div>
-          {inboxOpen && (
-            <div className="dashboard-section-content">
-              <MessageList
-                messages={messages}
-                selectedIds={selectedIds}
-                onSelect={handleSelect}
-                onBatchAction={handleBatchAction}
-                onRefresh={handleRefresh}
-                onMessageClick={handleMessageClick}
-                onMessageAction={handleMessageAction}
-                page={page}
-                setPage={setPage}
-                loading={loading}
-              />
-            </div>
-          )}
-        </div>
+        <ExpandableSectionBox
+          title="הודעות"
+          isOpen={inboxOpen}
+          onToggle={() => setInboxOpen((open) => !open)}
+          iconOpen={<ArrowDownSmallIcon />}
+          iconClosed={<ArrowLeftSmallIcon />}
+        >
+          <MessageList
+            messages={messages}
+            selectedIds={selectedIds}
+            onSelect={handleSelect}
+            onBatchAction={handleBatchAction}
+            onRefresh={handleRefresh}
+            onMessageClick={handleMessageClick}
+            onMessageAction={handleMessageAction}
+            page={page}
+            setPage={setPage}
+            loading={loading}
+          />
+        </ExpandableSectionBox>
 
         {/* Profile Preview Section */}
-        <div className="dashboard-section">
-          <div
-            className="dashboard-section-header"
-            onClick={() => setProfileOpen((open) => !open)}
-          >
-            {profileOpen ? <ArrowDownSmallIcon /> : <ArrowLeftSmallIcon />}
-            <span className="dashboard-section-title">פרטי פרופיל</span>
-          </div>
-          {profileOpen && (
-            <div className="dashboard-section-content">
-              <div className="profile-header">
-                <img
-                  className="profile-photo"
-                  src={profile.photo}
-                  alt={profile.name}
-                />
-                <div className="profile-header-info">
-                  <h2 className="profile-name">{profile.name}</h2>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">תחומי התמחות:</span>{' '}
-                    {profile.expertise.join(', ')}
-                  </div>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">שנות נסיון:</span>{' '}
-                    {profile.years_experience} שנים
-                  </div>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">גישה טיפולית:</span>{' '}
-                    {profile.approach.join(', ')}
-                  </div>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">סוגי מפגש:</span>{' '}
-                    {profile.meeting_types.join(', ')}
-                  </div>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">גילאי ילדים:</span>{' '}
-                    {profile.children_ages}
-                  </div>
-                  <div className="profile-meta-row">
-                    <span className="profile-meta-label">אזור:</span>{' '}
-                    {profile.location}
-                  </div>
-                </div>
+        <ExpandableSectionBox
+          title="פרטי פרופיל"
+          isOpen={profileOpen}
+          onToggle={() => setProfileOpen((open) => !open)}
+          iconOpen={<ArrowDownSmallIcon />}
+          iconClosed={<ArrowLeftSmallIcon />}
+        >
+          <div className="profile-header">
+            <img
+              className="profile-photo"
+              src={profile.photo}
+              alt={profile.name}
+            />
+            <div className="profile-header-info">
+              <h2 className="profile-name">{profile.name}</h2>
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">תחומי התמחות:</span>{' '}
+                {profile.expertise.join(', ')}
               </div>
-              <div className="profile-about-section">
-                <h3 className="profile-section-title">על עצמי</h3>
-                <div className="profile-about-text">{profile.about}</div>
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">שנות נסיון:</span>{' '}
+                {profile.years_experience} שנים
               </div>
-              <div className="profile-recommendations-section">
-                <h3 className="profile-section-title">
-                  המלצות ({profile.recommendations.length})
-                </h3>
-                {profile.recommendations.map((rec, idx) => (
-                  <div className="profile-recommendation" key={idx}>
-                    <div className="profile-recommendation-header">
-                      <span className="profile-recommendation-name">
-                        {rec.name}
-                      </span>
-                      <span className="profile-recommendation-date">
-                        {rec.date}
-                      </span>
-                      <span className="profile-recommendation-type">
-                        {rec.type}
-                      </span>
-                    </div>
-                    <div className="profile-recommendation-content">
-                      {rec.content}
-                    </div>
-                  </div>
-                ))}
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">גישה טיפולית:</span>{' '}
+                {profile.approach.join(', ')}
               </div>
-              <div className="profile-edit-actions">
-                <TextButton color="primary">עריכת פרופיל</TextButton>
-                <TextButton color="danger">הסתר פרופיל</TextButton>
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">סוגי מפגש:</span>{' '}
+                {profile.meeting_types.join(', ')}
+              </div>
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">גילאי ילדים:</span>{' '}
+                {profile.children_ages}
+              </div>
+              <div className="profile-meta-row">
+                <span className="profile-meta-label">אזור:</span>{' '}
+                {profile.location}
               </div>
             </div>
-          )}
-        </div>
+          </div>
+          <div className="profile-about-section">
+            <h3 className="profile-section-title">על עצמי</h3>
+            <div className="profile-about-text">{profile.about}</div>
+          </div>
+          <div className="profile-recommendations-section">
+            <h3 className="profile-section-title">
+              המלצות ({profile.recommendations.length})
+            </h3>
+            {profile.recommendations.map((rec, idx) => (
+              <div className="profile-recommendation" key={idx}>
+                <div className="profile-recommendation-header">
+                  <span className="profile-recommendation-name">
+                    {rec.name}
+                  </span>
+                  <span className="profile-recommendation-date">
+                    {rec.date}
+                  </span>
+                  <span className="profile-recommendation-type">
+                    {rec.type}
+                  </span>
+                </div>
+                <div className="profile-recommendation-content">
+                  {rec.content}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="profile-edit-actions">
+            <TextButton color="primary">עריכת פרופיל</TextButton>
+            <TextButton color="danger">הסתר פרופיל</TextButton>
+          </div>
+        </ExpandableSectionBox>
       </div>
     </div>
   );

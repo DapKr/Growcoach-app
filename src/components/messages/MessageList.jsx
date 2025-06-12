@@ -6,8 +6,8 @@ import { ReactComponent as EmailUnreadIcon } from '../../icons/mark-email-unread
 import { ReactComponent as FlagAction } from '../../icons/flag.svg';
 import { ReactComponent as Delete } from '../../icons/delete.svg';
 import { ReactComponent as Refresh } from '../../icons/refresh.svg';
-import { ReactComponent as ArrowLeftIcon } from '../../icons/arrow-left-small.svg';
-import { ReactComponent as ArrowRightIcon } from '../../icons/arrow-right-small.svg';
+import { ReactComponent as ArrowLeftIcon } from '../../icons/arrow-left-large.svg';
+import { ReactComponent as ArrowRightIcon } from '../../icons/arrow-right-large.svg';
 import './messages.css';
 
 // Icons (replace with your SVGs or icon components as needed)
@@ -87,6 +87,7 @@ export default function MessageList({
         <div className="message-list-header-left">
           <input
             type="checkbox"
+            className="custom-checkbox"
             ref={selectAllRef}
             checked={allSelected}
             onChange={(e) => onSelect && onSelect('all', e.target.checked)}
@@ -123,6 +124,9 @@ export default function MessageList({
           )}
         </div>
         <div className="message-list-header-center">
+          <span className="message-list-header-pagination">
+            {startIdx + 1}-{endIdx} מתוך {total}
+          </span>
           <button
             className="message-list-header-pagebtn"
             onClick={() => setPage && setPage(currentPage - 1)}
@@ -130,9 +134,7 @@ export default function MessageList({
           >
             <ArrowRight />
           </button>
-          <span className="message-list-header-pagination">
-            {startIdx + 1}-{endIdx} מתוך {total}
-          </span>
+
           <button
             className="message-list-header-pagebtn"
             onClick={() => setPage && setPage(currentPage + 1)}
