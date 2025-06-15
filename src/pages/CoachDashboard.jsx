@@ -7,6 +7,9 @@ import { ReactComponent as ArrowLeftSmallIcon } from '../icons/arrow-left-small.
 import { ReactComponent as ArrowDownSmallIcon } from '../icons/arrow-down-small.svg';
 import '../components/StickyHeader/stickyHeader.css';
 import '../styles/dashboard.css';
+import Snackbar from '../components/snackbar/snackbar';
+import '../components/snackbar/snackbar.css';
+import CTAButton from '../components/CTAButton/CTAButton';
 
 export default function CoachDashboard() {
   // State for collapsible sections
@@ -15,8 +18,20 @@ export default function CoachDashboard() {
   const [showAccount, setShowAccount] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [page, setPage] = useState(1);
+  const [pageSize] = useState(20);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [trash, setTrash] = useState([]);
+  const [showTrash, setShowTrash] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    actionLabel: '',
+    onAction: null,
+  });
+  const [pendingDelete, setPendingDelete] = useState([]); // for undo
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
 
   // Mock messages
   const [messages, setMessages] = useState([
@@ -44,14 +59,159 @@ export default function CoachDashboard() {
       read: true,
       flagged: false,
     },
+    {
+      id: 4,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 5,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 6,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 7,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 8,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 9,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 10,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 11,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 12,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 13,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 14,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 15,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 16,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 17,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 18,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 19,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 20,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
+    {
+      id: 21,
+      sender: 'דנה ג',
+      subject: 'יועץ על גמילה',
+      date: new Date(Date.now() - 2 * 86400000).toISOString(),
+      read: true,
+      flagged: false,
+    },
     // ...add more mock messages as needed
   ]);
 
+  // Calculate unread messages count
+  const unreadCount = messages.filter((msg) => !msg.read).length;
+
   // Message actions
-  const handleSelect = (msgOrAll, checked) => {
+  const handleSelect = (msgOrAll, checked, pageIds = []) => {
     if (msgOrAll === 'all') {
-      // Select all on current page
-      const pageIds = pagedMessages().map((m) => m.id);
       setSelectedIds(
         checked
           ? Array.from(new Set([...selectedIds, ...pageIds]))
@@ -65,22 +225,30 @@ export default function CoachDashboard() {
   };
 
   const handleBatchAction = (action, ids) => {
-    setMessages((msgs) =>
-      msgs
-        .map((msg) =>
+    if (action === 'delete') {
+      handleDelete(ids);
+      return;
+    }
+    setMessages((msgs) => {
+      if (action === 'read') {
+        const anyUnread = msgs.some((msg) => ids.includes(msg.id) && !msg.read);
+        return msgs.map((msg) =>
           ids.includes(msg.id)
-            ? action === 'read'
-              ? { ...msg, read: !msg.read }
-              : action === 'flag'
-                ? { ...msg, flagged: !msg.flagged }
-                : action === 'delete'
-                  ? null
-                  : msg
+            ? { ...msg, read: anyUnread ? true : false }
             : msg
-        )
-        .filter(Boolean)
-    );
-    setSelectedIds([]);
+        );
+      } else if (action === 'flag') {
+        const anyUnflagged = msgs.some(
+          (msg) => ids.includes(msg.id) && !msg.flagged
+        );
+        return msgs.map((msg) =>
+          ids.includes(msg.id)
+            ? { ...msg, flagged: anyUnflagged ? true : false }
+            : msg
+        );
+      }
+      return msgs;
+    });
   };
 
   const handleRefresh = () => {
@@ -116,14 +284,6 @@ export default function CoachDashboard() {
     ) {
       setSelectedMessage(null);
     }
-  };
-
-  // Helper to get paged messages for selection
-  const pagedMessages = () => {
-    const PAGE_SIZE = 20;
-    const startIdx = (page - 1) * PAGE_SIZE;
-    const endIdx = Math.min(startIdx + PAGE_SIZE, messages.length);
-    return messages.slice(startIdx, endIdx);
   };
 
   // Mock profile data
@@ -174,6 +334,87 @@ export default function CoachDashboard() {
     </div>
   );
 
+  // Trash logic
+  const handleDelete = (ids) => {
+    const toTrash = messages.filter((msg) => ids.includes(msg.id));
+    setTrash((prev) => [...prev, ...toTrash]);
+    setMessages((msgs) => msgs.filter((msg) => !ids.includes(msg.id)));
+    setPendingDelete(toTrash);
+    setSnackbar({
+      open: true,
+      message: 'ההודעה נמחקה',
+      actionLabel: 'בטל',
+      onAction: handleUndoDelete,
+    });
+  };
+
+  const handleUndoDelete = () => {
+    setMessages((msgs) => [...msgs, ...pendingDelete]);
+    setTrash((prev) =>
+      prev.filter((msg) => !pendingDelete.some((d) => d.id === msg.id))
+    );
+    setPendingDelete([]);
+    setSnackbar({ open: false });
+  };
+
+  const handlePermanentDelete = (ids) => {
+    setTrash((prev) => prev.filter((msg) => !ids.includes(msg.id)));
+    setSnackbar({
+      open: true,
+      message: 'ההודעה נמחקה לצמיתות',
+      actionLabel: '',
+      onAction: null,
+    });
+  };
+
+  const handleEmptyTrash = () => {
+    setTrash([]);
+    setSnackbar({
+      open: true,
+      message: 'כל ההודעות באשפה נמחקו לצמיתות',
+      actionLabel: '',
+      onAction: null,
+    });
+  };
+
+  // Confirmation dialog logic
+  const openConfirm = (action) => {
+    setConfirmAction(() => action);
+    setShowConfirm(true);
+  };
+  const closeConfirm = () => {
+    setShowConfirm(false);
+    setConfirmAction(null);
+  };
+  const confirm = () => {
+    if (confirmAction) confirmAction();
+    closeConfirm();
+  };
+
+  // Restore logic: insert messages in chronological order
+  const handleRestore = (ids) => {
+    const toRestore = trash.filter((msg) => ids.includes(msg.id));
+    setTrash((prev) => prev.filter((msg) => !ids.includes(msg.id)));
+    setMessages((msgs) => {
+      const combined = [...msgs, ...toRestore];
+      // Sort by date descending (newest first)
+      return combined.sort((a, b) => new Date(b.date) - new Date(a.date));
+    });
+    setSnackbar({
+      open: true,
+      message: 'ההודעה שוחזרה',
+      actionLabel: '',
+      onAction: null,
+    });
+  };
+
+  // When switching between inbox/trash, always expand the section and reset page
+  const handleToggleTrash = () => {
+    setInboxOpen(true);
+    setPage(1);
+    setShowTrash((v) => !v);
+  };
+
   return (
     <div>
       {/* StickyHeader with profile/account area */}
@@ -185,26 +426,87 @@ export default function CoachDashboard() {
       </StickyHeader>
       {showAccount && <AccountModal />}
 
+      <Snackbar
+        open={snackbar.open}
+        message={snackbar.message}
+        actionLabel={snackbar.actionLabel}
+        onAction={snackbar.onAction}
+        onClose={() => setSnackbar({ open: false })}
+      />
+      {showConfirm && (
+        <div className="confirm-dialog-overlay">
+          <div className="confirm-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="dialog-title">בטוח?</div>
+            <div className="dialog-message">ההודעות יימחקו לצמיתות</div>
+            <div className="dialog-actions">
+              <CTAButton size="small" variant="danger" onClick={confirm}>
+                מחק
+              </CTAButton>
+              <TextButton color="primary" onClick={closeConfirm}>
+                ביטול
+              </TextButton>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="dashboard-container">
         {/* Inbox Section */}
         <ExpandableSectionBox
-          title="הודעות"
+          title={
+            showTrash
+              ? `הודעות- אשפה (${trash.length})`
+              : unreadCount > 0
+                ? `הודעות (${unreadCount})`
+                : 'הודעות'
+          }
           isOpen={inboxOpen}
-          onToggle={() => setInboxOpen((open) => !open)}
+          onToggle={() => setInboxOpen(true)}
           iconOpen={<ArrowDownSmallIcon />}
           iconClosed={<ArrowLeftSmallIcon />}
         >
           <MessageList
-            messages={messages}
+            messages={
+              showTrash
+                ? [...trash].sort((a, b) => new Date(b.date) - new Date(a.date))
+                : [...messages].sort(
+                    (a, b) => new Date(b.date) - new Date(a.date)
+                  )
+            }
             selectedIds={selectedIds}
             onSelect={handleSelect}
-            onBatchAction={handleBatchAction}
+            onBatchAction={
+              showTrash
+                ? (action, ids) => {
+                    if (action === 'delete')
+                      openConfirm(() => handlePermanentDelete(ids));
+                    if (action === 'restore') handleRestore(ids);
+                  }
+                : handleBatchAction
+            }
             onRefresh={handleRefresh}
             onMessageClick={handleMessageClick}
-            onMessageAction={handleMessageAction}
+            onMessageAction={
+              showTrash
+                ? undefined
+                : (action, msg) => {
+                    if (action === 'delete') handleDelete([msg.id]);
+                    else handleMessageAction(action, msg);
+                  }
+            }
             page={page}
             setPage={setPage}
             loading={loading}
+            pageSize={pageSize}
+            mode={showTrash ? 'trash' : 'inbox'}
+            onRestore={showTrash ? handleRestore : undefined}
+            onEmptyTrash={
+              showTrash
+                ? () => openConfirm(() => handleEmptyTrash())
+                : undefined
+            }
+            onToggleTrash={handleToggleTrash}
+            trashCount={trash.length}
           />
         </ExpandableSectionBox>
 

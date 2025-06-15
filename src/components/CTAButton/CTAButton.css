@@ -31,6 +31,15 @@
   background-color: var(--color-gray-200);
 }
 
+.cta-button.danger {
+  background-color: var(--color-error);
+  color: var(--color-inverse-maintext);
+}
+
+.cta-button.danger:hover {
+  background-color: var(--color-errormuted3);
+}
+
 .cta-button-text {
   font: var(--text-style-subtitle);
   white-space: nowrap;
@@ -45,6 +54,7 @@
   min-width: 0;
   max-width: none;
   border-radius: 6px;
+  height: 32px;
 }
 
 .cta-button.small .cta-button-text {

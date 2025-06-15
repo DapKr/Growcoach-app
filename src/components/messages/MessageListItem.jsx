@@ -6,6 +6,7 @@ import { ReactComponent as EmailUnreadIcon } from '../../icons/mark-email-unread
 import { ReactComponent as FlagAction } from '../../icons/flag.svg';
 import { ReactComponent as FlagMark } from '../../icons/flag-two-tone.svg';
 import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
+import { ReactComponent as RestoreIcon } from '../../icons/restore.svg';
 
 function formatTimestamp(dateString) {
   const date = new Date(dateString);
@@ -36,6 +37,8 @@ export default function MessageListItem({
   onAction,
   showDivider = true,
   touchMode = false,
+  mode = 'inbox',
+  onRestore,
   ...props
 }) {
   // Sender name logic
@@ -47,30 +50,46 @@ export default function MessageListItem({
   }
 
   // Actions
-  const actions = [
-    {
-      key: 'read',
-      icon: message.read ? (
-        <EmailUnreadIcon className="action-icon" />
-      ) : (
-        <EmailReadIcon className="action-icon" />
-      ),
-      label: message.read ? 'סמן כלא נקרא' : 'סמן כנקרא',
-      onClick: () => onAction && onAction('read', message),
-    },
-    {
-      key: 'flag',
-      icon: <FlagAction className="action-icon" />,
-      label: message.flagged ? 'בטל דגל' : 'סמן כדגל',
-      onClick: () => onAction && onAction('flag', message),
-    },
-    {
-      key: 'delete',
-      icon: <DeleteIcon className="action-icon" />,
-      label: 'מחק',
-      onClick: () => onAction && onAction('delete', message),
-    },
-  ];
+  const actions =
+    mode === 'trash'
+      ? [
+          {
+            key: 'restore',
+            icon: <RestoreIcon className="action-icon" />,
+            label: 'שחזר',
+            onClick: () => onRestore && onRestore([message.id]),
+          },
+          {
+            key: 'delete',
+            icon: <DeleteIcon className="action-icon" />,
+            label: 'מחק לצמיתות',
+            onClick: () => onAction && onAction('delete', message),
+          },
+        ]
+      : [
+          {
+            key: 'read',
+            icon: message.read ? (
+              <EmailUnreadIcon className="action-icon" />
+            ) : (
+              <EmailReadIcon className="action-icon" />
+            ),
+            label: message.read ? 'סמן כלא נקרא' : 'סמן כנקרא',
+            onClick: () => onAction && onAction('read', message),
+          },
+          {
+            key: 'flag',
+            icon: <FlagAction className="action-icon" />,
+            label: message.flagged ? 'בטל דגל' : 'סמן כדגל',
+            onClick: () => onAction && onAction('flag', message),
+          },
+          {
+            key: 'delete',
+            icon: <DeleteIcon className="action-icon" />,
+            label: 'מחק',
+            onClick: () => onAction && onAction('delete', message),
+          },
+        ];
 
   // States
   const rootClass = [
@@ -105,7 +124,7 @@ export default function MessageListItem({
         {message.subject}
       </div>
       {/* Flag icon (hidden on hover) */}
-      {message.flagged && !isHovered && (
+      {message.flagged && !isHovered && mode !== 'trash' && (
         <div className="message-list-item-flag">
           <FlagMark className="flagged-icon" />
         </div>
@@ -151,4 +170,6 @@ MessageListItem.propTypes = {
   onAction: PropTypes.func,
   showDivider: PropTypes.bool,
   touchMode: PropTypes.bool,
+  mode: PropTypes.oneOf(['inbox', 'trash']),
+  onRestore: PropTypes.func,
 };

@@ -1,0 +1,38 @@
+.snackbar-root {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  background: #323232;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  min-width: 200px;
+  max-width: 90vw;
+  font-size: 1rem;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.snackbar-message {
+  flex: 1;
+}
+
+.snackbar-action {
+  background: none;
+  border: none;
+  color: #ffb300;
+  font-weight: bold;
+  margin-left: 16px;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+.snackbar-action:hover {
+  text-decoration: underline;
+}
