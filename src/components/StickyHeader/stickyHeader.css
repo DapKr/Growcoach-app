@@ -7,12 +7,13 @@
   background: var(--color-mainbackground);
   padding: 20px 48px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   z-index: 100;
+  position: relative;
 }
 
-.sticky-header .logo-container {
+.logo-container {
   display: block;
   height: 40px;
 }
@@ -45,12 +46,50 @@
     padding: 20px 20px;
   }
 
-  .sticky-header .logo-container {
+  .logo-container {
     height: 32px;
   }
 
   .nav-links {
-  gap: 12px;
+    gap: 12px;
+  }
 }
 
+.profile-area {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-hello {
+  color: var(--color-maintext);
+  font: var(--text-style-body);
+}
+
+@media (max-width: 768px) {
+  .sticky-header {
+    padding: 20px 20px;
+  }
+  .logo-container {
+    height: 32px;
+  }
+  .profile-area {
+    left: 8px;
+  }
+  .profile-avatar {
+    width: 32px;
+    height: 32px;
+  }
 }

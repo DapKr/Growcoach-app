@@ -418,12 +418,10 @@ export default function CoachDashboard() {
   return (
     <div>
       {/* StickyHeader with profile/account area */}
-      <StickyHeader>
-        <div className="profile-area" onClick={() => setShowAccount(true)}>
-          <img src={profile.photo} alt="profile" className="profile-avatar" />
-          <span className="profile-hello">היי, משתמש</span>
-        </div>
-      </StickyHeader>
+      <StickyHeader
+        profile={profile}
+        onProfileClick={() => setShowAccount(true)}
+      />
       {showAccount && <AccountModal />}
 
       <Snackbar
